@@ -1,0 +1,241 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link active" href="#"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="#"> Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Appraisal</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Reports</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Announcement</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Manage Data</a>
+    </li>
+</ul>
+
+<section class="home-section px-lg-5">
+    <!-- FOR ADMINS -->
+    <div class="pt-5">
+        <div class="row m-0 p-0 adminCard">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'employee' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fa fa-3x fa-user-tie"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Employees</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'onboarding' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fa fa-3x fa-handshake"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Onboarding</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'probation' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fa fa-3x fa-clipboard-user"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Probation</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'promotion' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fad fa-3x fa-trophy-alt"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Promoted</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'department' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="bx bx-lg bx-buildings"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Departments</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'courses' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fad fa-3x fa-books"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Courses</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'competency' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="bx bx-lg bxs-check-shield"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Competencies</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{% url 'termination' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fad fa-3x fa-user-alt-slash"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Terminated</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- CARDS -->
+        <div class="row mt-5 m-0 p-0">
+            <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
+                <div class="card border-0">
+                    <div class="card-header bg-body-secondary border-0 text-primary fw-bold">
+                        <i class="bx bx-file"></i> Latest Documents
+                    </div> 
+                    <div class="card-body">
+                        <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
+                            <div class="col-lg-10 col-md-8 col-6">
+                                <h6 class="card-title ">Doc title</h6> 
+                                <p class="card-text">
+                                    <i class="fa fa-user-ninja small"></i> Owner |
+                                    <i class="far fa-clock small"></i> Date
+                                </p>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
+                            </div>
+                        </a> <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
+                <div class="card border-0">
+                    <div class="card-header bg-body-secondary border-0 text-primary fw-bold">
+                        <i class="bx bx-news"></i> Latest News
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
+                            <div class="col-lg-10 col-md-8 col-6">
+                                <h6 class="card-title ">Doc title</h6> 
+                                <p class="card-text">
+                                    <i class="fa fa-user-ninja small"></i> Owner |
+                                    <i class="far fa-clock small"></i> Date
+                                </p>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
+                            </div>
+                        </a> <br>
+
+                        <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
+                            <div class="col-lg-10 col-md-8 col-6">
+                                <h6 class="card-title ">Doc title</h6> 
+                                <p class="card-text">
+                                    <i class="fa fa-user-ninja small"></i> Owner |
+                                    <i class="far fa-clock small"></i> Date
+                                </p>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
+                            </div>
+                        </a> <br>
+                    </div>
+                </div>
+            </div>
+            <!-- Chart -->
+            <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
+                <div class="charts card border-0">
+                    <div class="card-header chart doughnut-chart bg-body-secondary border-0 text-primary fw-bold">
+                        <i class="fa fa-user-tie"></i> Employees
+                    </div> 
+                    <div class="card-body">
+                        <canvas id="doughnut"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <!-- 9-Box Matrix -->
+        <div class="col-lg-6 col-sm-12 mt-5 mx-auto matrix">
+            {% include 'performance/highcharts-chart.html' %}
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script src="{% static 'performance/js/chart2.js' %}"></script>
+{% endblock body %}

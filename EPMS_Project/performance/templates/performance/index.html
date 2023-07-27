@@ -1,0 +1,374 @@
+{% extends 'performance/base.html' %}
+{% load static %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block body %}
+
+<!-- Header Begins -->
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg position-absolute w-100 bg-transparent">
+        <div class="row m-0 w-100">
+            <div class="col-6">
+                <a class="navbar-brand" href="#home">
+                    <img src="{% static 'performance/images/logoNav.png' %}" class="mx-4 mt-4" width="100">
+                </a>
+            </div>
+            <div class="col-6 m-0 p-0 ">
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon small"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav nav-underline mx-auto me-5 mb-2 mb-lg-0 mt-lg-3">
+                        <li class="nav-item mx-lg-3">
+                            <a class="nav-link active text-white" aria-current="page" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item mx-lg-3">
+                            <a class="nav-link text-white" href="#about">About</a>
+                        </li>
+                        <li class="nav-item mx-lg-3">
+                            <a class="nav-link text-white" href="#solutions">Solutions</a>
+                        </li>
+                    </ul>
+                    <a class="btn" href="{% url 'login' %}" ><i class="fa fa-sign-in-alt"> Login</a></i>
+                </div>
+            </div>
+        </div>
+  </nav>
+</header>
+<!-- Header Ends -->
+
+<!-- Main Begins -->
+<main>
+    <!-- Home Section -->
+    <section id="home" class="d-flex align-items-center justify-content-sm-center justify-content-lg-start mb-5">
+        <div class="row container w-75 mx-3">
+            <div class="col-lg-6 col-12">
+                <h1 class="">Eval<span>Rater</span> </h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="mb-5 min-vh-100">
+        <div class="container">
+            <div class="text w-50 mx-auto mb-5">
+                <h2 class="fw-bold text-center">About <span>Us</span></h2>
+                <br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+               </p>
+            </div>
+
+            <!-- Cards -->
+            <div class="row mx-auto">
+                <!-- Mission Card -->
+                <div class="col-lg-4 col-12 mt-lg-5 mb-5">
+                    <div class="card">
+                      <h3 class="card-title text-center"><i class="h3 fw-bold">Our</i> <br> <span>Mission</span></h3>
+                      <p class="card-body pt-3 p-5">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                        Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                      </p>
+                    </div>
+                </div>
+                
+                <!-- Vision Card -->
+                <div class="col-lg-4 col-12 mb-3">
+                    <div class="card">
+                      <h3 class="card-title text-center"><i class="h3 fw-bold">Our</i> <br> <span>Vision</span></h3>
+                      <p class="card-body pt-3 p-5">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                        Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                      </p>
+                    </div>
+                </div>
+                
+                <!-- Values Card -->
+                <div class="col-lg-4 col-12 mt-lg-5 mb-3">
+                    <div class="card">
+                      <h3 class="card-title text-center"><i class="h3 fw-bold">Our</i> <br> <span>Values</span></h3>
+                      <p class="card-body pt-3 p-5">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                        Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                      </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions">
+        <div class="container w-75 mb-5">
+            <div class="text w-50 mx-auto mb-5">
+                <h2 class="fw-bold text-center">Created for <span>ACT</span></h2>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/automate.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Automated Performance Management System
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/onboard.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Automated Onboarding Experience for New Hires
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/checkin.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Frequent Check-in on Staff Members
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/engage.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Enhanced Employee Engagement 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/review.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                360-degree Employee Performance Review
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/develop.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Training and Development Module
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/achieve.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Employee Achievement Recognition
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card border-0 mb-5 rounded-bottom-2" style="width: 12rem;">
+                        <div class="bg-white p-3 rounded-end-pill d-flex justify-content-center">
+                            <img src="{% static 'performance/images/flexible.png' %}" width="50%" alt="...">
+                        </div>
+                        <div class="card-body" style="color: #218CCC;">
+                            <p class="card-text text-center" style="font-size: 12px;">
+                                Handles Increasing Number of Employees and Departments 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container w-75 mb-5 min-vh-100">
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">A single platform for performance management</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/EVALRater.jpg' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/taskMgt.jpg' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">Task Management</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">360-Degree Review</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/360Review.jpg' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/training.jpg' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">Training and Development</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">Employee Recognition</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/recognition.jpg' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/matrix.png' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">9-box Matrix</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-5 border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-4 text-start">Report and Analytics</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Nullam euismod, velit vel finibus bibendum, lectus lorem aliquet nisi, vel commodo nunc elit vitae odio. 
+                                    Sed euismod odio in justo mollis, sed ultricies magna efficitur.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <img src="{% static 'performance/images/analytics.jpg' %}" width="100%" class="img-fluid" alt="...">
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </section>
+</main>
+<!-- Main Ends -->
+
+<!-- Footer Begins -->
+<footer>
+    <div class="row m-0">
+        <div class="col-6 d-flex align-items-center ">
+            <a href="#home" class="d-flex align-items-center">
+                <img src="{% static 'performance/images/logoNav.png' %}" class="logo" alt="">
+            </a>
+        </div>
+
+        <div class="col-6 align-self-end">
+            <div class=" icons d-flex justify-content-center">
+                <a href="https://www.facebook.com/ACTAmericanCollege/"><i class="fab fa-facebook mx-xl-4 mx-2"></i></a>
+                <a href="https://github.com/hannahabebe/EVALRater"><i class="fab fa-github mx-xl-4 mx-2"></i></a>  
+                <a href="https://et.linkedin.com/company/sholla-computing"><i class="fab fa-linkedin mx-xl-4 mx-2"></i></a>
+                <a href="http://www.actamericancollege.com/"><i class="fa fa-globe mx-xl-4 mx-2"></i></a>
+            </div>
+            <div class ="text-center text-primary mt-2"><i class="far fa-copyright"></i> 2023 Copyright</div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+{% endblock body %}

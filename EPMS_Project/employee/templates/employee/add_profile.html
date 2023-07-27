@@ -1,0 +1,187 @@
+{% extends 'employee/base.html' %}
+{% load static %}
+
+{% block title %}Add Employee Detail{% endblock title %}
+
+{% block body %}
+
+<!-- Header Begins -->
+<header>
+    <!-- Navbar -->
+    <nav class="container p-3 px-0">
+        <ul class="nav nav-tabs justify-content-between">
+            <li class="nav-item">
+                <a class="nav-link active btn" aria-current="page"  href="#" ><i class="fa fa-home"> Home</i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn" href="{% url 'employee' %}" ><i class="fa fa-arrow-circle-left"> Back</i></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- Header Ends -->
+
+<!-- Main Begins -->
+<main>
+    <!-- Registration Form -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong class="h3">{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="m-0 p-0">
+        <div class="row m-0 p-0 d-flex align-items-center">
+            <div class="col-lg-6 col-12 m-0 p-0">
+                <div class="card mx-auto my-3 register-card">
+                    <div class="mx-auto mt-4">
+                        <img src="{% static 'performance/images/logoNav.png' %}" width="100" alt="logo">
+                    </div>
+                    <div class="card-title mx-auto mt-2 mb-4">
+                        <h3 class="fw-bold mt-4">Add Employee Detail</h3>
+                    </div>
+                            <div class="card-body p-md-5">
+                                <div class="justify-content-center">
+                                <div class="order-2 order-lg-1">
+                                    <form method="POST" class="mx-1 mx-md-4"  enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row mb-4">
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-user fa-lg me-3 fa-fw"></i>
+                                                {{custom_user}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-user-circle fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.avatar}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4 justify-content-between">
+                                                <i class="fa fa-venus-mars fa-lg me-3 fa-fw"></i>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="active" name="gender" value="F" {% if profile_form.gender == 'F' %} checked {% else %} '' {% endif %}/>
+                                                    <label class="form-check-label" for="active" style="color: #676666;">Female</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="maleGender" name="gender" value="M" {% if profile_form.gender == 'M' %} checked {% else %} '' {% endif %}/>
+                                                    <label class="form-check-label" for="maleGender" style="color: #676666;">Male</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-calendar fa-lg me-3 fa-fw"></i>
+                                                <input type="date" id="birthdate" class="form-control" name="dob" value="{{ profile_form.dob.value }}"/>
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-flag fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.nationality}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-rings-wedding fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.marital_status}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-phone-alt fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.phone_number}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-map-marker-alt fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.address}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-calendar-day fa-lg me-3 fa-fw"></i>
+                                                <input type="date" id="joined_date" class="form-control" name="joined_date" value="{{ profile_form.joined_date.value }}"/>
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.department}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.designation}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.promotion_designation}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.employment_type}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.email}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.manager}}
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {% comment %} {{profile_form.status}} {% endcomment %}
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="active" name="status" value="A" {% if profile_form.status == 'A' %} checked {% else %} '' {% endif %}/>
+                                                    <label class="form-check-label" for="active" style="color: #676666;">Active</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inactive" name="status" value="IN" {% if profile_form.status == 'IN' %} checked {% else %} '' {% endif %}/>
+                                                    <label class="form-check-label" for="inactive" style="color: #676666;">Inactive</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.salary}}
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fa fa-lg me-3 fa-fw"></i>
+                                                {{profile_form.note}}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <a href="{% url 'register' %}" class="btn btn-primary">Add Login Detail</a>
+                                                <p>Create new login detail...</p>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Register</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                    
+                                </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 p-0 m-0 d-flex justify-content-end">
+                <img src="{% static 'employee/images/login.png' %}" width="100%" alt="login">
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Main Ends  -->
+
+<!-- Footer Begins -->
+<footer>
+  <div class="row m-0">
+      <div class="col-6 p-0 d-flex align-items-center">
+          <a href="#home">
+              <img src="{% static 'employee/images/footer.png' %}" class="footer" alt="">
+          </a>
+      </div>
+
+      <div class="col-6 align-self-end">
+          <div class=" icons d-flex justify-content-center">
+              <a href="https://www.facebook.com/ACTAmericanCollege/"><i class="fab fa-facebook mx-xl-4 mx-2"></i></a>
+              <a href="https://github.com/hannahabebe/EVALRater"><i class="fab fa-github mx-xl-4 mx-2"></i></a>  
+              <a href="https://et.linkedin.com/company/sholla-computing"><i class="fab fa-linkedin mx-xl-4 mx-2"></i></a>
+              <a href="http://www.actamericancollege.com/"><i class="fa fa-globe mx-xl-4 mx-2"></i></a>
+          </div>
+          <div class ="text-center text-primary mt-2"><i class="far fa-copyright"></i> 2023 Copyright</div>
+      </div>
+  </div>
+</footer>
+<!-- Footer Ends -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{% endblock body %}

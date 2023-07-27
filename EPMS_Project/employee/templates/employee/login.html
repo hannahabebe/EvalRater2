@@ -1,0 +1,84 @@
+{% extends 'employee/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+
+<!-- Header Begins -->
+<header>
+    <!-- Navbar -->
+    <nav class="container p-3 px-0">
+        <ul class="nav nav-tabs justify-content-between">
+            <li class="nav-item">
+                <a class="nav-link active btn" aria-current="page"  href="#" ><i class="fa fa-home"> Home</i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn" href="{% url 'index' %}" ><i class="fa fa-arrow-circle-left"> Back</i></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- Header Ends -->
+
+<!-- Main Begins -->
+<main>
+    <!-- Login Form -->
+    <div class="m-0 p-0">
+        <div class="row m-0 p-0 d-flex align-items-center">
+            <div class="col-lg-6 col-12 m-0 p-0">
+                <div class="card login-card mx-auto py-3 px-1 my-3">
+                    <div class="card-title mx-auto mt-2 mb-4">
+                        <img src="{% static 'performance/images/logoNav.png' %}" width="100" alt="logo">
+                        <br>
+                    </div>
+                    <div class="card-body mx-auto">
+                        <form action="" method="POST">
+                          {% csrf_token %}
+                            <i class="fa fa-user-lock h5 text-primary fw-bold mb-4"> Login</i>
+                            <div class="input-group mb-4">
+                                <span class="input-group-text bg-white rounded-start-4"><i class="fa fa-id-card-alt"></i></span>
+                                <input type="text" class="form-control text-primary rounded-end-4" name="employee_id" id="employee_id" placeholder="id">
+                            </div>
+                            <div class="input-group mb-4">
+                                <span class="input-group-text bg-white rounded-start-4"><i class="fa fa-key"></i></span>
+                                <input type="password" class="form-control text-primary rounded-end-4" name="password" id="password" placeholder="password">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input type="submit" value="Login" class="btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 p-0 m-0 d-flex justify-content-end">
+                <img src="{% static 'employee/images/login.png' %}" width="100%" alt="login">
+            </div>
+        </div>
+    </div>
+</main>
+  <!-- Main Ends  -->
+
+  <!-- Footer Begins -->
+<footer>
+    <div class="row m-0">
+        <div class="col-6 p-0 d-flex align-items-center">
+            <a href="#home" class="">
+                <img src="{% static 'employee/images/footer.png' %}" class="footer" alt="">
+            </a>
+        </div>
+
+        <div class="col-6 align-self-end">
+            <div class=" icons d-flex justify-content-center">
+                <a href="https://www.facebook.com/ACTAmericanCollege/"><i class="fab fa-facebook mx-xl-4 mx-2"></i></a>
+                <a href="https://github.com/hannahabebe/EVALRater"><i class="fab fa-github mx-xl-4 mx-2"></i></a>  
+                <a href="https://et.linkedin.com/company/sholla-computing"><i class="fab fa-linkedin mx-xl-4 mx-2"></i></a>
+                <a href="http://www.actamericancollege.com/"><i class="fa fa-globe mx-xl-4 mx-2"></i></a>
+            </div>
+            <div class ="text-center text-primary mt-2"><i class="far fa-copyright"></i> 2023 Copyright</div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+{% endblock body %}

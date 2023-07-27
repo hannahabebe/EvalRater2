@@ -1,0 +1,25 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#"> List</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Add</a>
+    </li>
+</ul>
+
+<section class="home-section px-lg-5">
+    <h3>This is onboarding page.</h3>
+</section>
+
+{% endblock body %}

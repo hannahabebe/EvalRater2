@@ -1,0 +1,44 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+
+{% block body %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#"><i class="fa fa-list"></i> Department Lists</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" onclick="addDept(event, 'add')"><i class="fa fa-plus-circle"></i> Add Department</a>
+    </li>
+</ul>
+
+<div class="table-responsive table-hover home-section px-lg-5">
+    <table class="table caption-top">
+        <caption>List of Departments</caption>
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Department Name</th>
+            <th scope="col">Head of Department</th>
+            <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="add" class="list">
+    ff
+</div>
+{% endblock body %}

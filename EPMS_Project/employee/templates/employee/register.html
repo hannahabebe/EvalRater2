@@ -1,0 +1,153 @@
+{% extends 'employee/base.html' %}
+{% load static %}
+
+{% block title %}Add Employee Login{% endblock title %}
+
+{% block body %}
+
+<!-- Header Begins -->
+<header>
+    <!-- Navbar -->
+    <nav class="container p-3 px-0">
+        <ul class="nav nav-tabs justify-content-between">
+            <li class="nav-item">
+                <a class="nav-link active btn" aria-current="page"  href="#" ><i class="fa fa-home"> Home</i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn" href="{% url 'employee' %}" ><i class="fa fa-arrow-circle-left"> Back</i></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- Header Ends -->
+
+<!-- Main Begins -->
+<main>
+   <!-- Registration Form -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong class="h3">{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="m-0 p-0">
+        <div class="row m-0 p-0 d-flex align-items-center">
+            <div class="col-lg-6 col-12 m-0 p-0">
+                <div class="card mx-auto my-3 register-card">
+                    <div class="mx-auto mt-4">
+                        <img src="{% static 'performance/images/logoNav.png' %}" width="100" alt="logo">
+                    </div>
+                    <div class="card-title mx-auto mt-2 mb-4">
+                        <h3 class="fw-bold mt-4">Login Detail</h3>
+                    </div>
+                        <div class="card-body p-md-5">
+                            <div class="justify-content-center">
+                            <div class="order-2 order-lg-1">
+                                <form method="POST" class="mx-1 mx-md-4"  enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row mb-4">
+                                        <div class="col-lg-6 d-flex flex-row align-items-center">
+                                            <i class="fas fa-id-card fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                {{user_id}}
+                                                <input type="text" id="user_id" class="form-control" name="user_id" {% if form.user_id.value %} value="{{ form.user_id.value }}" {% endif %}  />
+                                                <label class="form-label" for="user_id">User Id</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 d-flex flex-row align-items-center">
+                                            <i class="fa fa-lg me-3 fa-fw"></i>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="is_manager" value="true" {% if form.is_manager.value == True %} checked {% else %} '' {% endif %}/>
+                                                    <label class="form-check-label" style="color: #676666;">Manager</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="is_employee" value="true" {% if form.is_employee.value == True %} checked {% else %} '' {% endif %}/>
+                                                    <label class="form-check-label" style="color: #676666;">Employee</label>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-lg-6 d-flex flex-row align-items-center">
+                                            <i class="fas fa-user-circle fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="text" id="first_name" class="form-control" name="first_name" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %}/>
+                                                <label class="form-label" for="first_name">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 d-flex flex-row">
+                                            <i class="fas fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="text" id="last_name" class="form-control" name="last_name" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %}/>
+                                                <label class="form-label" for="last_name">Last Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-lg-6 d-flex flex-row align-items-center">
+                                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="password" id="Password1" class="form-control" name="password1" {% if form.password1.value %} value="{{ form.password1.value }}" {% endif %}/>
+                                                <label class="form-label" for="password1">Password</label>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-lg-6 d-flex flex-row align-items-center">
+                                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="password" id="password2" class="form-control" name="password2" {% if form.password2.value %} value="{{ form.password2.value }}" {% endif %}/>
+                                                <label class="form-label" for="password2">Confirm Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mt-3 mt-lg-5 justify-content-between">
+                                        {% comment %} <div class="">
+                                            <a href="{% url 'add_profile'user_id %}" class="btn btn-primary px-2 mx-5">Add Profile</a>
+                                            <p class="">Already have login detail?</p>
+                                        </div> {% endcomment %}
+                                        <div class="">
+                                            <button type="submit" class="btn btn-primary">Register</button>
+                                        </div>
+                                    </div>
+                        
+                                </form>
+                
+                            </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 p-0 m-0 d-flex justify-content-end">
+                <img src="{% static 'employee/images/login.png' %}" width="100%" alt="login">
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Main Ends  -->
+
+<!-- Footer Begins -->
+<footer>
+  <div class="row m-0">
+      <div class="col-6 p-0 d-flex align-items-center">
+          <a href="#home" class="">
+              <img src="{% static 'employee/images/footer.png' %}" class="footer" alt="">
+          </a>
+      </div>
+
+      <div class="col-6 align-self-end">
+          <div class=" icons d-flex justify-content-center">
+              <a href="https://www.facebook.com/ACTAmericanCollege/"><i class="fab fa-facebook mx-xl-4 mx-2"></i></a>
+              <a href="https://github.com/hannahabebe/EVALRater"><i class="fab fa-github mx-xl-4 mx-2"></i></a>  
+              <a href="https://et.linkedin.com/company/sholla-computing"><i class="fab fa-linkedin mx-xl-4 mx-2"></i></a>
+              <a href="http://www.actamericancollege.com/"><i class="fa fa-globe mx-xl-4 mx-2"></i></a>
+          </div>
+          <div class ="text-center text-primary mt-2"><i class="far fa-copyright"></i> 2023 Copyright</div>
+      </div>
+  </div>
+</footer>
+<!-- Footer Ends -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{% endblock body %}

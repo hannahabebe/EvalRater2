@@ -1,0 +1,77 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#"> List</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Add</a>
+    </li>
+</ul>
+
+<section class="home-section px-lg-5">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong class="h5">{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+
+    <table>
+        <thead>
+        <tr>
+            <th class="px-3" style="font-size: 14px;">Employee Id</th>
+            <th class="px-3" style="font-size: 14px;">Username</th>
+            <th class="px-3" style="font-size: 14px;">Employee Name</th>
+            <th class="px-3" style="font-size: 14px;">Department</th>
+            <th class="px-3" style="font-size: 14px;">Designation</th>
+            <th class="px-3" style="font-size: 14px;">Role</th>
+            <th class="px-3" style="font-size: 14px;">Manager</th>
+            <th class="px-3" style="font-size: 14px;">Phone Number</th>
+            <th class="px-3" style="font-size: 14px;">Address</th>
+            <th class="px-3" style="font-size: 14px;">Joined Date</th>
+            <th class="px-3" style="font-size: 14px;">Status</th>
+            <th class="px-3" style="font-size: 14px;">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employee in page_obj %}
+        <tr>
+            <td>{{ employee.name }}</td>
+            <td>
+                <a href="{% url 'employee_view' employee.id %}"><i class="fas fa-eye"></i></a>
+                <a href="{% url 'employee_edit' employee.id %}"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current-page">{{ page_obj.number }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+</section>
+{% endblock body %}

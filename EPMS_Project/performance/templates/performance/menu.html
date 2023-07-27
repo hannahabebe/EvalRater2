@@ -1,0 +1,67 @@
+{% extends 'performance/base.html' %}
+{% load static %}
+
+{% block title %}Sidebar Menu{% endblock title %}
+
+{% block body %}
+
+<section>
+    <div id="sidenavbar" class="sidenav">
+        <div class="dropdown avatar pb-4">
+            <a href="#" class="text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'performance/images/user.png' %}" alt="avatar" width="100" id="avatar" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-light text-small shadow">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+            </ul>
+        </div>
+        </a>
+        <div id="name">
+            <h3 class="text-center text-primary">Dr. Asmamaw Mengiste</h3>
+            <span class="">President</span>
+        </div>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i id="leftarrow" class="fa fa-arrow-circle-left"></i></a>
+        <div id="sidenavitems" class="nav-pills">
+            <a href="# {% url 'dashboard' %} " class="nav-link sidelinks active" onclick="openContent(event, 'dashboard')" id="dashOpen"><i class="icons fas fa-tachometer-alt" style="width: 35px;"></i> Dashboard</a>
+            <a href="# {% url 'department' %} " class="nav-link sidelinks" onclick="openContent(event, 'departments')" id="deptOpen"><i class="icons fas fa-sitemap" style="width: 35px;"></i> Departments</a>
+            <a href="# {% url 'employee' %}" class="nav-link sidelinks" onclick="openContent(event, 'employees')"><i class="icons fas fa-user-tie" style="width: 35px;"></i> Employees</a>
+            <a href="# {% url 'training' %}" class="nav-link sidelinks" onclick="openContent(event, 'training')"><i class="icons fa fa-chalkboard-teacher" style="width: 35px;"></i> Training</a>
+            <a href="# {% url 'development' %}" class="nav-link sidelinks" onclick="openContent(event, 'development')"><i class="icons fa fa-hand-holding-usd" style="width: 35px;"></i> Development</a>
+            <a href="{% url 'login' %}" class="sidelinks"><i class="icons fa fa-sign-out-alt" style="width: 35px;"></i> Logout</a>
+        </div>
+    </div>
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()"><i id="rightarrow" class="fa fa-arrow-circle-right"></i></span>
+        
+        <div id="sidemain">
+            <div id="dashboard" class="content">
+                {% include "performance/dashboard.html" %}
+            </div>
+
+            <div id="departments" class="content">
+                {% include "performance/department.html" %}
+            </div>
+
+            <div id="employees" class="content">
+                {% include "performance/employee.html" %}
+            </div>
+
+            <div id="development" class="content">
+                {% include "performance/development.html" %}
+            </div>
+
+            <div id="training" class="content">
+                {% include "performance/training.html" %}
+            </div>
+            <!-- DASHBOARD BEGINS -->
+            <!-- DASHBOARD ENDS -->
+
+            <!-- DEPARTMENT BEGINS -->
+            <!-- DEPARTMENT ENDS -->
+        </div>
+    </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,73 @@
+{% extends 'performance/base.html' %}
+{% load static %}
+
+{% block title %}Admin Panel{% endblock title %}
+
+{% block sidebar %}
+<div class="sidebar">
+  <div class="logo_details">
+    <img src="{% static 'performance/images/logoNav.png' %}" width="30" alt="">
+    <div class="logo_name px-2 pt-1">Eval<span>Rater</span></div>
+    <i class="bx bx-menu" id="btns"></i>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <a href="{% url 'dashboard' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li>
+      <a href="{% url 'department' %}">
+        <i class="bx bx-sitemap"></i>
+        <span class="link_name">Departments</span>
+      </a>
+      <span class="tooltip">Departments</span>
+    </li>
+    <li>
+      <a href="{% url 'employee' %}">
+        <i class="bx bx-group"></i>
+        <span class="link_name">Employees</span>
+      </a>
+      <span class="tooltip">Employees</span>
+    </li>
+    <li>
+      <a href="{% url 'training' %}">
+        <i class="bx bx-chalkboard"></i>
+        <span class="link_name">Training</span>
+      </a>
+      <span class="tooltip">Training</span>
+    </li>
+    <li>
+      <a href="{% url 'development' %}">
+        <i class="bx bx-briefcase"></i>
+        <span class="link_name">Development</span>
+      </a>
+      <span class="tooltip">Development</span>
+    </li>
+    
+  </ul>
+</div>
+<nav class="navbar mainNav">
+    <ul class="nav">
+      <li class="nav-item profile">
+        <div class="profile_details d-flex mx-3">
+          <img src="{% static 'performance/images/user.png' %}" width="45" alt="">
+          <div class="profile_content mx-2 my-auto">
+            <div class="name">Anna Jhon</div>
+            <div class="designation">Admin</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <span class="navbar-text small pe-3">
+      <a href="{% url 'login' %}">
+        <i class="bx bx-log-out text-primary" id="log_out"></i>
+      </a> 
+    </span>
+</nav>
+{% endblock sidebar %}
+{% block body %}
+
+{% endblock body %}
