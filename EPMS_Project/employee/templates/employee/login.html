@@ -33,12 +33,21 @@
                         <br>
                     </div>
                     <div class="card-body mx-auto">
+                        {% if messages %}
+                            <div class="alert alert-danger text-left">
+                                <ul class="m-0 p-0">
+                                    {% for message in messages %}
+                                        <span class="text-danger " style="font-size:14px;">{{ message }}</span>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                         <form action="" method="POST">
                           {% csrf_token %}
                             <i class="fa fa-user-lock h5 text-primary fw-bold mb-4"> Login</i>
                             <div class="input-group mb-4">
                                 <span class="input-group-text bg-white rounded-start-4"><i class="fa fa-id-card-alt"></i></span>
-                                <input type="text" class="form-control text-primary rounded-end-4" name="employee_id" id="employee_id" placeholder="id">
+                                <input type="text" class="form-control text-primary rounded-end-4" name="user_id" id="user_id" placeholder="id">
                             </div>
                             <div class="input-group mb-4">
                                 <span class="input-group-text bg-white rounded-start-4"><i class="fa fa-key"></i></span>

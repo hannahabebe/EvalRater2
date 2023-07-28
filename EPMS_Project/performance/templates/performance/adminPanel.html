@@ -62,9 +62,10 @@
       </li>
     </ul>
     <span class="navbar-text small pe-3">
-      <a href="{% url 'login' %}">
-        <i class="bx bx-log-out text-primary" id="log_out"></i>
-      </a> 
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+      <button type="submit" style="border:none; background:transparent; "> <i class="bx bx-log-out text-primary" id="log_out"></i></button>
+    </form>
     </span>
 </nav>
 {% endblock sidebar %}

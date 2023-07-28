@@ -1,3 +1,4 @@
+from django.shortcuts import redirect, render
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from performance.models import *
@@ -11,25 +12,37 @@ from django.db.models.signals import post_save
 from django.contrib.auth import views as auth_views
 
 # add role based login... when is_admin = True, redirect to admin dashboard and so on
+
+
+def login_page(request):
+    from django.contrib.auth import authenticate, login
+
+
 def login_page(request):
     if request.method == "POST":
-        user = request.POST['user_id']
+        user_id = request.POST['user_id']
         password = request.POST['password']
-        user = authenticate(request, user_id=user, password=password)
+        user = authenticate(request, user_id=user_id, password=password)
+
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+
+            # Assuming you have a field or group that indicates admin status
+            if user.is_admin:
+                return redirect('dashboard')
+            else:
+                return redirect('dashboard')
         else:
-            messages.error(request, ("Invalid Id or password, Try Again!"))
+            messages.error(request, "Invalid Id or password, Try Again!")
             return redirect('login')
-          
     else:
         return render(request, 'employee/login.html', {})
+
 
 def logout_page(request):
     logout(request)
     messages.warning(request, ("You are Logged Out"))
-    return redirect('index')
+    return redirect('login')
 
 
 def register_page(request):
@@ -50,13 +63,14 @@ def register_page(request):
     else:
         form = EmployeeRegistrationForm()
     return render(request, 'employee/register.html', {
-    'form':form,
-        })
+        'form': form,
+    })
+
 
 def add_profile(request, user_id):
     custom_user = CustomUser.objects.get(user_id=user_id)
     print(custom_user)
-    #user = Employee.objects.get(id=1)
+    # user = Employee.objects.get(id=1)
     if request.method == 'POST':
         print("POST IN")
         profile_form = EmployeeForm(request.POST, request.FILES)
@@ -77,4 +91,3 @@ def add_profile(request, user_id):
         'custom_user': custom_user,
         'profile_form': profile_form,
     })
-

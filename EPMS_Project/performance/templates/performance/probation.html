@@ -18,8 +18,45 @@
     </li>
 </ul>
 
-<section class="home-section px-lg-5">
-    <h3>This is probation page.</h3>
-</section>
+
+<div class="table-responsive table-hover home-section p-lg-3">
+    
+    <table class="table table-bordered caption-top">
+        <caption>List of Employess</caption> 
+        <thead>
+            <tr>
+                <th></th>
+                <th class="px-3" style="font-size: 14px;">Employee Id</th>
+                <th class="px-3" style="font-size: 14px;">Employee Name</th>
+                <th class="px-3" style="font-size: 14px;">Department</th>
+                <th class="px-3" style="font-size: 14px;">Designation</th>
+                <th class="px-3" style="font-size: 14px;">Manager</th>
+                <th class="px-3" style="font-size: 14px;">Phone Number</th>
+            
+                <th class="px-3" style="font-size: 14px;">Status</th>
+                <th class="px-3" style="font-size: 14px;">View</th>
+                <th class="px-3" style="font-size: 14px;">Edit</th>
+            </tr>
+        </thead>
+        <tbody class="table-caption-top">
+            {% for employee in employee_on_probation %}
+            <tr>
+                <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
+                <td>{{ employee.user.user_id }}</td>
+                <td>{{ employee.user.first_name }} {{employee.user.last_name}}</td>            
+                <td>{{ employee.department }}</td>            
+                <td style="width:15%; text-align:left;">{{ employee.designation }}</td>            
+                <td>{{ employee.manager }}</td>
+                <td>{{ employee.phone_number }}</td>
+                <td class="text-center">{{ employee.status }}</td>
+               
+                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 
 {% endblock body %}

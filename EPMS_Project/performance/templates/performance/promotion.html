@@ -17,9 +17,39 @@
         <a class="nav-link" href="#">Add</a>
     </li>
 </ul>
+<div class="table-responsive table-hover home-section px-lg-5">
+    <table class="table table-bordered caption-top">
+        <caption>List of Promotions</caption>
+        <thead>
+            <tr>
+            <th></th>
+            <th scope="col">Full name</th>
+            <th scope="col">Date of promotions</th>
+            <th scope="col">Bonus</th>
+            <th scope="col">New Salary</th>
+            <th scope="col">New Salary</th>
+            <th scope="col">New Position</th>
+            <th scope="col">Past Position</th>
+            <th class="px-3">View</th>
+            <th class="px-3" >Edit</th>
 
-<section class="home-section px-lg-5">
-    <h3>This is promotion page.</h3>
-</section>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for promotion in promotion %}
+            <tr>
+                <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
+                <td>{{promotion.employee.user.first_name}} {{promotions.employee.user.last_name}}</td>
+                <td>{{promotion.bonus}}</td>
+                <td>{{promotions.new_salary}}</td>
+                <td>{{promotions.new_position}}</td>
+                <td>{{promotions.past_position}}</td>
+                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
 
 {% endblock body %}

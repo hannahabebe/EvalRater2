@@ -17,28 +17,33 @@
 </ul>
 
 <div class="table-responsive table-hover home-section px-lg-5">
-    <table class="table caption-top">
+    <table class="table table-bordered caption-top">
         <caption>List of Departments</caption>
         <thead>
             <tr>
             <th scope="col">#</th>
             <th scope="col">Department Name</th>
             <th scope="col">Head of Department</th>
-            <th scope="col">Handle</th>
+            <th class="px-3 text-center">View</th>
+            <th class="px-3 text-center">Edit</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
+            {% for department in departments%}
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <th scope="row">{{forloop.counter}}</th>
+                <td> {{department.department_name}}</td>
+                <td>{{department.department_head.first_name}} {{department.department_head.last_name}}</td>
+                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+            
             </tr>
+            {%endfor%}
         </tbody>
     </table>
 </div>
 
 <div id="add" class="list">
-    ff
+    
 </div>
 {% endblock body %}

@@ -18,8 +18,34 @@
     </li>
 </ul>
 
-<section class="home-section px-lg-5">
-    <h3>This is courses page.</h3>
-</section>
+<div class="table-responsive table-hover home-section px-lg-5">
+    <table class="table table-bordered caption-top">
+        <caption>List of Courses</caption>
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Course ID</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Couch</th>
+            
+            <th class="px-3">View</th>
+            <th class="px-3">Edit</th>
+
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for course in courses %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td> {{course.course_id}}</td>
+                <td>{{course.course_name}}</td>
+                <td>{{course.coach}}</td>
+                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
 
 {% endblock body %}
