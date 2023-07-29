@@ -8,16 +8,22 @@
     </li>
     <li class="vr bg-primary my-2 mx-2"></li>
     <li class="nav-item">
-        <a class="nav-link" href="#"> Profile</a>
+        <a class="nav-link" href="{% url 'profile' %}"> Profile</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Appraisal</a>
+        <a class="nav-link" href="{% url 'appraisal' %}">Appraisal</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Reports</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Announcement</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Documents</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">News</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Manage Data</a>
@@ -166,18 +172,20 @@
                         <i class="bx bx-file"></i> Latest Documents
                     </div> 
                     <div class="card-body">
+                        {% for news in newses%}
                         <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
                             <div class="col-lg-10 col-md-8 col-6">
-                                <h6 class="card-title ">Doc title</h6> 
+                                <h6 class="card-title ">{{news.title}}</h6> 
                                 <p class="card-text">
-                                    <i class="fa fa-user-ninja small"></i> Owner |
-                                    <i class="far fa-clock small"></i> Date
+                                    <i class="fa fa-user-ninja small"></i> {{news.author}} |
+                                    <i class="far fa-clock small"></i> {{created_at}}
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-4 col-6">
                                 <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
                             </div>
                         </a> <br>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -187,31 +195,20 @@
                         <i class="bx bx-news"></i> Latest News
                     </div>
                     <div class="card-body">
+                        {% for news in newses %}
                         <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
                             <div class="col-lg-10 col-md-8 col-6">
-                                <h6 class="card-title ">Doc title</h6> 
+                                <h6 class="card-title ">{{news.title}}</h6> 
                                 <p class="card-text">
-                                    <i class="fa fa-user-ninja small"></i> Owner |
-                                    <i class="far fa-clock small"></i> Date
+                                    <i class="fa fa-user-ninja small"></i> {{news.publisher}} |
+                                    <i class="far fa-clock small"></i> {{news.created_at}}
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-4 col-6">
                                 <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
                             </div>
                         </a> <br>
-
-                        <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
-                            <div class="col-lg-10 col-md-8 col-6">
-                                <h6 class="card-title ">Doc title</h6> 
-                                <p class="card-text">
-                                    <i class="fa fa-user-ninja small"></i> Owner |
-                                    <i class="far fa-clock small"></i> Date
-                                </p>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
-                            </div>
-                        </a> <br>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

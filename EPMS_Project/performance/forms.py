@@ -1,7 +1,7 @@
 # forms.py
 
 from django import forms
-from .models import Employee, Promotion, Department, Course, Competency, Termination
+from .models import *
 
 
 class EmployeeCreateForm(forms.ModelForm):
@@ -44,4 +44,16 @@ class CompetencyForm(forms.ModelForm):
 class TerminationForm(forms.ModelForm):
     class Meta:
         model = Termination
+        fields = "__all__"
+
+
+class AppraisalForm(forms.ModelForm):
+    class Meta:
+        model = Appraisal
+        fields = "__all__"
+
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
         fields = "__all__"

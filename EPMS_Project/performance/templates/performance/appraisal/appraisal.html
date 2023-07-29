@@ -1,0 +1,58 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'appraisal' %}"> List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'appraisal_create' %}">Add</a>
+    </li>
+</ul>
+
+<div class="table-responsive table-hover home-section p-lg-3">
+    
+    <table class="table table-bordered caption-top">
+        <caption>List of Appraisals</caption> 
+        <thead>
+            <tr>
+                <th></th>
+                <th class="px-3" style="font-size: 14px;">Employee Name</th>
+                <th class="px-3" style="font-size: 14px;">Department</th>
+                <th class="px-3" style="font-size: 14px;">Designation</th>
+                <th class="px-3" style="font-size: 14px;">Appraisal cycle</th>
+                <th class="px-3" style="font-size: 14px;">Appraisal Status</th>
+                <th class="px-3" style="font-size: 14px;">Final rating</th>
+                <th class="px-3" style="font-size: 14px;">View</th>
+                <th class="px-3" style="font-size: 14px;">Edit</th>
+            </tr>
+        </thead>
+        <tbody class="table-caption-top">
+            {% for appraisal in appraisals %}
+            <tr>
+                <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
+                <td>{{ appraisal.employee.user.first_name }} {{appraisal.employee.user.last_name}}</td>            
+                <td>{{ appraisal.department }}</td>            
+                <td style="width:15%; text-align:left;">{{ appraisal.designation }}</td>            
+                <td class="text-center">{{ appraisal.appraisal_cycle}}</td>
+                <td class="text-center">{{ appraisal.appraisal_Status}}</td>
+                <td class="text-center">{{ appraisal.potential}}</td>
+               
+               
+                <td class="text-center"><a href="{% url 'appraisal_detail' appraisal.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'appraisal_update' appraisal.id %}" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock body %}

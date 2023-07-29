@@ -1,0 +1,196 @@
+<!-- performance/CreateEmployee.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'employees' %}"> List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'appraisal_create' %}">Add Appraisal</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'question_create' %}">Add Question</a>
+    </li>
+</ul>
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="/media/avatar/user.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{appraisal_detail.employee.user.first_name}} {{appraisal_detail.employee.user.last_name}}</h5>
+               
+            <p class="text-muted mb-1"> {{appraisal_detail.department}}</p>
+            <p class="text-muted mb-2">{{appraisal_detail.employee.address}}</p>
+
+
+            <div class="d-flex align-items-center m-0 mb-3"> 
+                {% if appraisal_detail.employee.status == "A" %}
+                <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Active</p>
+                {% else %}
+                <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Inactive</p>
+                {% endif %}
+            </div>
+
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="mb-0">Competencies</h5>
+              </div>
+              <div class="col-sm-12 mt-3">
+                {% for competencie in appraisal_detail.competencies.all %}
+                  <p>{{competencie}}</p>
+                {% endfor %}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="mb-0">Questions</h5>
+              </div>
+              <div class="col-sm-12 mt-3">
+                {% for question in appraisal_detail.question.all %}
+                  <div class="d-flex">
+                    <p>{{question.question_text}}</p>
+                    <p>{{question.weight}}</p>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="mb-0">Evaluators</h5>
+              </div>
+              <div class="col-sm-12 mt-3">
+                {% for evaluators in appraisal_detail.evaluators.all %}
+                  <p>{{evaluators}}</p>
+                {% endfor %}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="mb-0">Colleagues</h5>
+              </div>
+              <div class="col-sm-12 mt-3">
+                {% for colleagues in appraisal_detail.colleagues.all %}
+                  <p>{{colleagues}}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="mb-3">Personal Information</h4>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Department</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.department}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Appraisal Cycle</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.appraisal_cycle}} {{appraisal_detail.user.last_name}}</p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Potential</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.potential}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Others</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.others}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Start From</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.start_from}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">To</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.to}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Appraisal Status</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.appraisal_Status}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Final Rating</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{appraisal_detail.final_rating}}</p>
+              </div>
+            </div>
+           <hr>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <div class="card  mb-md-0">
+              <div class="card-body">
+                <h5>Description</h5>
+                <hr>
+                <p>{{appraisal_detail.description}}</p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

@@ -1,8 +1,8 @@
 from django.http import HttpResponse
-from .models import Employee, Department, Course, Competency, Termination, Promotion, Training, DevelopmentPlan
+from .models import *
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from .forms import EmployeeCreateForm, EmployeeUpdateForm, PromotionForm, DepartmentForm, CourseForm, CompetencyForm, TerminationForm
+from .forms import *
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -27,6 +27,14 @@ def get_employee_with_probation():
 
 
 @login_required(login_url="/employees/login")
+def Profile(request):
+    ur = CustomUser.objects.get(user_id=request.user.user_id)
+    employee = Employee.objects.get(user=ur)
+    context = {"employee_detail": employee}
+    return render(request, 'performance/profile.html', context)
+
+
+@login_required(login_url="/employees/login")
 def index(request):
     return render(request, 'performance/index.html')
 
@@ -46,11 +54,13 @@ def dashboard(request):
     courses_count = Course.objects.count()
     terminated_count = Termination.objects.count()
     competency_count = Competency.objects.count()
+    documents = Document.objects.order_by('-created_at')[:5]
+    news = News.objects.order_by('-created_at')[:5]
     context = {"employee_count": employee_count, "promotions_count": promotions_count,
                "terminated_count": terminated_count, "competency_count": competency_count,
                "onboard_employee_count": onboard_employee_count,
                "employee_on_probation_count": employee_on_probation_count,
-               "departments_count": departments_count, "courses_count": courses_count}
+               "departments_count": departments_count, "courses_count": courses_count, "newses": news, "documents": documents}
     return render(request, 'performance/dashboard.html', context)
 
 
@@ -292,6 +302,46 @@ class TerminationUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('termination')
+
+
+class AppraisalListView(ListView):
+    model = Appraisal
+    template_name = 'performance/appraisal/appraisal.html'
+    context_object_name = 'appraisals'
+
+
+class AppraisalDetailView(DetailView):
+    model = Appraisal
+    template_name = 'performance/appraisal/appraisal_detail.html'
+    context_object_name = 'appraisal_detail'
+
+
+class AppraisalCreateView(CreateView):
+    model = Appraisal
+    form_class = AppraisalForm
+    template_name = 'performance/appraisal/appraisal_create.html'
+    success_url = reverse_lazy('appraisal')
+
+
+class AppraisalUpdateView(UpdateView):
+    model = Appraisal
+    template_name = 'performance/appraisal/appraisal_update.html'
+    form_class = AppraisalForm
+    context_object_name = 'appraisal_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('appraisal')
+
+
+class QuestionCreateView(CreateView):
+    model = Question
+    form_class = QuestionForm
+    template_name = 'performance/appraisal/question_create.html'
+    success_url = reverse_lazy('appraisal')
 
 
 @login_required(login_url="/employees/login")

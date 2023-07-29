@@ -383,7 +383,7 @@ class Matrix(models.Model):
     category = models.CharField(
         max_length=2, choices=POTENTIAL_CHOICES, null=True)
     note = models.CharField(max_length=100, null=True)
-    weight = models.IntegerField(choices=POTENTIAL_CHOICES, null=True)
+    weight = models.IntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Matrices"
@@ -397,7 +397,7 @@ class Question(models.Model):
     weight = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.id
+        return self.question_text
 
 
 class Appraisal(models.Model):
@@ -411,7 +411,8 @@ class Appraisal(models.Model):
         max_length=100, null=True)  # appraisal_name
     competencies = models.ManyToManyField(Competency)
     questions = models.ManyToManyField(Question)
-    potential = models.ForeignKey(Matrix, on_delete=models.SET_NULL, null=True)
+    potential = models.ForeignKey(
+        Matrix, on_delete=models.SET_NULL, null=True)
     description = models.TextField(blank=True, null=True)
     evaluators = models.ManyToManyField(Employee, related_name='evaluators')
     colleagues = models.ManyToManyField(Employee, related_name='colleagues')
@@ -435,6 +436,7 @@ class Appraisal(models.Model):
     def __str__(self):
         return f"{self.appraisal_cycle} - {self.appraisal_Status}"
 
+
 # Report Model ....may not be necessary
 
 # Document Model
@@ -444,7 +446,8 @@ class Document(models.Model):
     title = models.CharField(max_length=100, null=True)
     content = models.TextField(null=True)
     file = models.FileField(upload_to='documents/', null=True)
-    author = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(
+        Employee, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     # Employees who can view this news
@@ -464,7 +467,8 @@ class Document(models.Model):
 class News(models.Model):
     title = models.CharField(max_length=100, null=True)
     content = models.TextField(null=True)
-    news_image = models.ImageField(null=True, blank=True, upload_to="images/")
+    news_image = models.ImageField(
+        null=True, blank=True, upload_to="images/")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     publisher = models.ForeignKey(
         Employee, on_delete=models.SET_NULL, related_name='Author', null=True)

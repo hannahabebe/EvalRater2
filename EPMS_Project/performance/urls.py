@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path("menu", views.menu, name="menu"),
     path('panel/dashboard', views.dashboard, name='dashboard'),
-
+    path('panel/profile', views.Profile, name='profile'),
 
     # Employee URL
     path('panel/employees', views.EmployeeListView.as_view(), name='employees'),
@@ -57,6 +57,16 @@ urlpatterns = [
     path('panel/termination/<int:pk>/update',
          views.TerminationUpdateView.as_view(), name='termination_update'),
 
+    # Appraisal URL
+    path('panel/appraisal', views.AppraisalListView.as_view(), name='appraisal'),
+    path('panel/appraisal_create', views.AppraisalCreateView.as_view(),
+         name='appraisal_create'),
+    path('panel/appraisal/<int:pk>/',
+         views.AppraisalDetailView.as_view(), name='appraisal_detail'),
+    path('panel/appraisal/<int:pk>/update',
+         views.AppraisalUpdateView.as_view(), name='appraisal_update'),
+    path('panel/question_create', views.QuestionCreateView.as_view(),
+         name='question_create'),
 
     path('panel/training', views.training, name='training'),
     path('panel/development', views.development, name='development'),
