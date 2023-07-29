@@ -1,0 +1,49 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="documents"> List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'document_create' %}">Add</a>
+    </li>
+</ul>
+
+<div class="table-responsive table-hover home-section p-lg-3">
+    
+    <table class="table table-bordered caption-top">
+        <caption>List of Employess</caption> 
+        <thead>
+            <tr>
+                <th class="px-3" style="font-size: 14px;">Title</th>
+                <th class="px-3" style="font-size: 14px;">Author</th>
+                <th class="px-3" style="font-size: 14px;">Created At</th>
+                <th>Link</th>
+
+            </tr>
+        </thead>
+        <tbody class="table-caption-top">
+            {% for document in documents %}
+            <tr>
+                <td>{{ document.title }}</td>
+                <td>{{ document.author }}</td>            
+                <td>{{ document.created_at }}</td>           
+                <td><a href="#">Link</a></td>           
+    
+               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock body %}

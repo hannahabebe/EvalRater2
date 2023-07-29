@@ -57,3 +57,9 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = "__all__"
+
+
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = "__all__"

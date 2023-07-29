@@ -344,6 +344,52 @@ class QuestionCreateView(CreateView):
     success_url = reverse_lazy('appraisal')
 
 
+class NewsListView(ListView):
+    model = News
+    template_name = 'performance/news/news.html'
+    context_object_name = 'newses'
+
+
+class NewsDetailView(DetailView):
+    model = News
+    template_name = 'performance/news/news_detail.html'
+    context_object_name = 'news'
+
+
+class NewsCreateView(CreateView):
+    model = News
+    form_class = NewsForm
+    template_name = 'performance/news/news_create.html'
+    success_url = reverse_lazy('news')
+
+
+class NewsUpdateView(UpdateView):
+    model = News
+    template_name = 'performance/news/news_update.html'
+    form_class = NewsForm
+    context_object_name = 'news'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('news')
+
+
+class DocumentListView(ListView):
+    model = News
+    template_name = 'performance/document/document.html'
+    context_object_name = 'documents'
+
+
+class DocumentCreateView(CreateView):
+    model = News
+    form_class = NewsForm
+    template_name = 'performance/document/document_create.html'
+    success_url = reverse_lazy('document')
+
+
 @login_required(login_url="/employees/login")
 def list_profile(request):
     employee_list = Employee.objects.all()

@@ -68,6 +68,22 @@ urlpatterns = [
     path('panel/question_create', views.QuestionCreateView.as_view(),
          name='question_create'),
 
+    # News URL
+    path('panel/news', views.NewsListView.as_view(), name='news'),
+    path('panel/news_create', views.NewsCreateView.as_view(),
+         name='news_create'),
+    path('panel/news/<int:pk>/',
+         views.NewsDetailView.as_view(), name='news_detail'),
+    path('panel/news/<int:pk>/update',
+         views.NewsUpdateView.as_view(), name='news_update'),
+
+    # Document URl
+    path('panel/documents',
+         views.DocumentListView.as_view(), name='documents'),
+    path('panel/document_create',
+         views.DocumentCreateView.as_view(), name='document_create'),
+
+
     path('panel/training', views.training, name='training'),
     path('panel/development', views.development, name='development'),
     path('panel/onboarding', views.onboard, name='onboarding'),
