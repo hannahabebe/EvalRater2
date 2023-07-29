@@ -1,0 +1,71 @@
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+{% load i18n widget_tweaks %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="/media/avatar/user.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{promotion_detail.employee.user.first_name}} {{promotion_detail.user.last_name}}</h5>
+               
+            <p class="text-muted mb-1"> {{promotion_detail.employee.designation}}</p>
+            <p class="text-muted mb-2">{{promotion_detail.employee.address}}</p>
+
+
+            <div class="d-flex align-items-center m-0 mb-3"> 
+                {% if promotion_detail.employee.status == "A" %}
+                <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Active</p>
+                {% else %}
+                <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Inactive</p>
+                {% endif %}
+            </div>
+
+             <div>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Created at {{promotion_detail.employee.created_at}} </p>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Last Modified at {{promotion_detail.employee.updated_at}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-8">
+            <div class="card mb-4 mx-4">
+                <div class="card-body text-center">
+                    <div class="modal-dialog modal-lg" role="document">
+                    <form method="post" class="form">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Promotion</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for field in form.visible_fields %}
+                                    <fieldset class="form-group">
+                                        <label for="exampleInputEmail1">
+                                        {{ field.label_tag }}
+                                    </label>
+                                    {{ field|attr:"class:form-control" }}
+                                </fieldset>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer mt-2">
+                                <input type="submit" class="btn btn-primary" value="Save changes" style="border-radius: .25rem;"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body%}

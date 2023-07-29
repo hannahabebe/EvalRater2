@@ -1,0 +1,79 @@
+<!-- performance/Createpromotion.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="mb-3">Competency Detail</h4>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Competency Name</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{competency_detail.competency_name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Department</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{competency_detail.department}} </p>
+              </div>
+            </div>
+             <hr>
+              <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Designation</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{competency_detail.designation}} </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Weight</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{competency_detail.weight}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Initiated Date</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{competency_detail.initiated_date}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Comment</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{competency_detail.comment}}</p>
+              </div>
+            </div>
+            <hr>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

@@ -2,10 +2,14 @@ from django.http import HttpResponse
 from .models import Employee, Department, Course, Competency, Termination, Promotion, Training, DevelopmentPlan
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from .forms import *
+from .forms import EmployeeCreateForm, EmployeeUpdateForm, PromotionForm, DepartmentForm, CourseForm, CompetencyForm, TerminationForm
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 def get_onboard_employee():
@@ -50,24 +54,84 @@ def dashboard(request):
     return render(request, 'performance/dashboard.html', context)
 
 
-@login_required(login_url="/employees/login")
-def department(request):
-    departments = Department.objects.all()
-    context = {"departments": departments}
-    return render(request, 'performance/department.html', context)
+class DepartmentListView(ListView):
+    model = Department
+    template_name = 'performance/department/department.html'
+    context_object_name = 'departments'
 
 
-@login_required(login_url="/employees/login")
-def employee(request):
-    employess = Employee.objects.all()
-    context = {"page_obj": employess}
-    return render(request, 'performance/employee.html', context)
+class DepartmentDetailView(DetailView):
+    model = Department
+    template_name = 'performance/department/department_detail.html'
+    context_object_name = 'department_detail'
+
+
+class DepartmentCreateView(CreateView):
+    model = Department
+    form_class = DepartmentForm
+    template_name = 'performance/department/department_create.html'
+    success_url = reverse_lazy('department')
+
+
+class DepartmentUpdateView(UpdateView):
+    model = Department
+    template_name = 'performance/department/department_update.html'
+    form_class = DepartmentForm
+    context_object_name = 'department_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('department')
+
+
+class EmployeeListView(ListView):
+    model = Employee
+    template_name = 'performance/employee.html'
+    context_object_name = 'page_obj'
+
+
+class EmployeeDetailView(DetailView):
+    model = Employee
+    template_name = 'performance/employee_detail.html'
+    context_object_name = 'employee_detail'
+
+
+"""
+
+
+class EmployeeCreateView(CreateView):
+    model = Employee
+    form_class = EmployeeCreateForm
+    template_name = 'performance/CreateEmployee.html'
+
+    def get_success_url(self):
+        # Redirect to the 'employee' URL without the 'employee/' part
+        return reverse('employee')
+"""
+
+
+class EmployeeUpdateView(UpdateView):
+    model = Employee
+    template_name = 'performance/employee_update.html'
+    form_class = EmployeeUpdateForm
+    context_object_name = 'employee_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('employees')
 
 
 @login_required(login_url="/employees/login")
 def training(request):
     trainings = Training.objects.all()
-    return render(request, 'performance/training.html')
+    context = {"trainings": trainings}
+    return render(request, 'performance/training.html', context)
 
 
 @login_required(login_url="/employees/login")
@@ -89,11 +153,37 @@ def onboard(request):
     return render(request, 'performance/onboarding.html', context)
 
 
-@login_required(login_url="/employees/login")
-def promote(request):
-    promotions = Promotion.objects.all()
-    context = {"promotions": promotions}
-    return render(request, 'performance/promotion.html', context)
+class PromotionListView(ListView):
+    model = Promotion
+    template_name = 'performance/promotion/promotion.html'
+    context_object_name = 'promotions'
+
+
+class PromotionDetailView(DetailView):
+    model = Promotion
+    template_name = 'performance/promotion/promotion_detail.html'
+    context_object_name = 'promotion_detail'
+
+
+class PromotionCreateView(CreateView):
+    model = Promotion
+    form_class = PromotionForm
+    template_name = 'performance/promotion/promotion_create.html'
+    success_url = reverse_lazy('promotion')
+
+
+class PromotionUpdateView(UpdateView):
+    model = Promotion
+    template_name = 'performance/promotion/promotion_update.html'
+    form_class = PromotionForm
+    context_object_name = 'promotion_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('promotion')
 
 
 @login_required(login_url="/employees/login")
@@ -111,20 +201,97 @@ def terminate(request):
     return render(request, 'performance/termination.html', context)
 
 
-# ask if she wants to generate the id when a new item is created instead of manually adding it
-@login_required(login_url="/employees/login")
-def courses(request):
-    course = Course.objects.all()
-    print(course)
-    context = {"courses": course}
-    return render(request, 'performance/courses.html', context)
+class CourseListView(ListView):
+    model = Course
+    template_name = 'performance/course/courses.html'
+    context_object_name = 'courses'
 
 
-@login_required(login_url="/employees/login")
-def competency(request):
-    employee_competency = Competency.objects.all()
-    context = {"employee_competency": employee_competency}
-    return render(request, 'performance/competency.html', context)
+class CourseDetailView(DetailView):
+    model = Course
+    template_name = 'performance/course/course_detail.html'
+    context_object_name = 'course_detail'
+
+
+class CourseCreateView(CreateView):
+    model = Course
+    form_class = CourseForm
+    template_name = 'performance/course/course_create.html'
+    success_url = reverse_lazy('course')
+
+
+class CourseUpdateView(UpdateView):
+    model = Course
+    template_name = 'performance/course/course_update.html'
+    form_class = CourseForm
+    context_object_name = 'course_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('course')
+
+
+class CompetencyListView(ListView):
+    model = Competency
+    template_name = 'performance/competency/competency.html'
+    context_object_name = 'employee_competency'
+
+
+class CompetencyDetailView(DetailView):
+    model = Competency
+    template_name = 'performance/competency/competency_detail.html'
+    context_object_name = 'competency_detail'
+
+
+class CompetencyCreateView(CreateView):
+    model = Competency
+    form_class = CompetencyForm
+    template_name = 'performance/competency/competency_create.html'
+    success_url = reverse_lazy('competency')
+
+
+class CompetencyUpdateView(UpdateView):
+    model = Competency
+    template_name = 'performance/competency/competency_update.html'
+    form_class = CompetencyForm
+    context_object_name = 'competency_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('competency')
+
+
+class TerminationListView(ListView):
+    model = Termination
+    template_name = 'performance/termination/termination.html'
+    context_object_name = 'terminated'
+
+
+class TerminationCreateView(CreateView):
+    model = Termination
+    form_class = TerminationForm
+    template_name = 'performance/termination/termination_create.html'
+    success_url = reverse_lazy('termination')
+
+
+class TerminationUpdateView(UpdateView):
+    model = Termination
+    template_name = 'performance/termination/termination_update.html'
+    form_class = TerminationForm
+    context_object_name = 'termination_detail'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('termination')
 
 
 @login_required(login_url="/employees/login")

@@ -10,11 +10,11 @@
     </li>
     <li class="vr bg-primary my-2 mx-2"></li>
     <li class="nav-item">
-        <a class="nav-link active" href="#"> List</a>
+        <a class="nav-link active" href="{% url 'courses' %}">List</a>
 
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Add</a>
+        <a class="nav-link" href="{% url 'courses_create' %}">Add</a>
     </li>
 </ul>
 
@@ -26,10 +26,9 @@
             <th scope="col">#</th>
             <th scope="col">Course ID</th>
             <th scope="col">Course Name</th>
-            <th scope="col">Couch</th>
             
-            <th class="px-3">View</th>
-            <th class="px-3">Edit</th>
+            <th class="px-3 text-center">View</th>
+            <th class="px-3 text-center">Edit</th>
 
             </tr>
         </thead>
@@ -39,9 +38,8 @@
                 <th scope="row">{{forloop.counter}}</th>
                 <td> {{course.course_id}}</td>
                 <td>{{course.course_name}}</td>
-                <td>{{course.coach}}</td>
-                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
-                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+                <td class="text-center"><a href="{% url 'courses_detail' course.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'courses_update' course.id %}" ><i class="fas fa-edit"></i></a></td>
             </tr>
             {%endfor%}
         </tbody>

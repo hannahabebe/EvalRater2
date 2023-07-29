@@ -1,0 +1,118 @@
+<!-- performance/Createpromotion.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="/media/avatar/user.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{promotion_detail.employee.user.first_name}} {{promotion_detail.user.last_name}}</h5>
+               
+            <p class="text-muted mb-1"> {{promotion_detail.employee.designation}}</p>
+            <p class="text-muted mb-2">{{promotion_detail.employee.address}}</p>
+
+
+            <div class="d-flex align-items-center m-0 mb-3"> 
+                {% if promotion_detail.employee.status == "A" %}
+                <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Active</p>
+                {% else %}
+                <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Inactive</p>
+                {% endif %}
+            </div>
+
+             <div>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Created at {{promotion_detail.employee.created_at}} </p>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Last Modified at {{promotion_detail.employee.updated_at}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="mb-3">Promotion Detail</h4>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Date of Promotion</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{promotion_detail.date_of_promotion}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Bonus</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{promotion_detail.bonus}} {{promotion_detail.user.last_name}}</p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Past Position</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{promotion_detail.past_position}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">New Position</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{promotion_detail.new_position}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Employment Type</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{promotion_detail.employment_type}}</p>
+              </div>
+            </div>
+            <hr>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card  mb-md-0">
+              <div class="card-body">
+                <h5>Note</h5>
+                <hr>
+                <p>{{promotion_detail.note}}</p>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card  mb-md-0">
+              <div class="card-body">
+                <h5>Reason</h5>
+                <hr>
+                <p>{{promotion_detail.reason}}</p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

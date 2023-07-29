@@ -1,0 +1,224 @@
+<!-- performance/CreateEmployee.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'employees' %}"> List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="">Add</a>
+    </li>
+</ul>
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="/media/avatar/user.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</h5>
+               
+            <p class="text-muted mb-1"> {{employee_detail.designation}}</p>
+            <p class="text-muted mb-2">{{employee_detail.address}}</p>
+
+
+            <div class="d-flex align-items-center m-0 mb-3"> 
+                {% if employee_detail.status == "A" %}
+                <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Active</p>
+                {% else %}
+                <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Inactive</p>
+                {% endif %}
+            </div>
+
+             <div>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Created at {{employee_detail.created_at}} </p>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Last Modified at {{employee_detail.updated_at}} </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body">
+            <h4 class="mb-3">Employment Details</h4>
+            <hr>
+            <div class="row" ">
+              <div class="col-sm-6">
+                <p class="mb-0">Department</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem;">{{employee_detail.department}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" >
+              <div class="col-sm-6">
+                <p class="mb-0">Joined Date</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem;">{{employee_detail.joined_date}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" >
+              <div class="col-sm-6">
+                <p class="mb-0">Designation</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem; text-align: left;">{{employee_detail.designation}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" >
+              <div class="col-sm-6">
+                <p class="mb-0">Employement Type</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem;">{{employee_detail.employment_type}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" >
+              <div class="col-sm-6">
+                <p class="mb-0">Salary</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem;">{{employee_detail.salary}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" ">
+              <div class="col-sm-6">
+                <p class="mb-0">Promotion Designation</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem;">{{employee_detail.promotion_designation}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" ">
+              <div class="col-sm-6">
+                <p class="mb-0">Manager</p>
+              </div>
+              <div class="col-sm-6">
+                <p class="text-muted mb-0" style="font-size: 0.8rem;">{{employee_detail.manager}}</p>
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="mb-3">Personal Information</h4>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">User ID</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.user.user_id}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Gender</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.gender}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Nationality</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.nationality}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Date of birth</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.dob}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Martial Status</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.marital_status}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.email}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.phone_number}}</p>
+              </div>
+            </div>
+           <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{employee_detail.address}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <div class="card  mb-md-0">
+              <div class="card-body">
+                <h5>Note</h5>
+                <hr>
+                <p>{{employee_detail.note}}</p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

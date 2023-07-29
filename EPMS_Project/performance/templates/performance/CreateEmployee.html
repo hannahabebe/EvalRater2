@@ -1,0 +1,36 @@
+<!-- performance/CreateEmployee.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'employee' %}"> List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'employee_create' %}">Add</a>
+    </li>
+</ul>
+<div id="contactPopup" class="container d-flex justify-content-center align-items-center">
+    <div class="card">
+        <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {{form.}}
+    </div>
+    
+    <button class="btn btn-primary" type="submit">Save</button>
+  </form>
+    </div>
+  
+</div>
+{% endblock body%}
+
+
+
+

@@ -1,0 +1,82 @@
+<!-- performance/Createpromotion.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4" style="height: 90%;">
+          <div class="card-body text-center">
+            <img src="/media/avatar/user.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="mt-5">{{department_detail.department_head.first_name}} {{department_detail.department_head.last_name}}</h5>
+             <p >{{department_detail.department_head.user_id}}</p>
+            <p >Head of {{department_detail.department_name}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4" style="height: 90%;">
+          <div class="card-body">
+            <h4 class="mb-3">Department Detail</h4>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Department Name</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{department_detail.department_name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Status</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{department_detail.status}} </p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Created at</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{department_detail.created_at}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Updated at</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{department_detail.updated_at}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Total Employees</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{department_detail.total_employees}}</p>
+              </div>
+            </div>
+            <hr>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

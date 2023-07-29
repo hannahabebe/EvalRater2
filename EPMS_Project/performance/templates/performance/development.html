@@ -18,8 +18,40 @@
     </li>
 </ul>
 
-<section class="home-section px-lg-5">
-    <h3>{{developments}}</h3>
-</section>
+<div class="table-responsive table-hover home-section p-lg-3">
+    
+    <table class="table table-bordered caption-top">
+        <caption>List of Employess</caption> 
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="px-3" style="font-size: 14px;">IDP Name</th>
+                <th class="px-3" style="font-size: 14px;">Employee Name</th>
+                <th class="px-3" style="font-size: 14px;">Course</th>
+                <th class="px-3" style="font-size: 14px;">Coach</th>
+                <th class="px-3" style="font-size: 14px;">Initiated Date</th>
+                <th class="px-3" style="font-size: 14px;">Status</th>
+                <th class="px-3" style="font-size: 14px;">View</th>
+                <th class="px-3" style="font-size: 14px;">Edit</th>
+            </tr>
+        </thead>
+        <tbody class="table-caption-top">
+            {% for  development in developments %}
+            <tr>
+            
+                <td>{{ development.IDP_name }}</td>
+                <td>{{ development.employee.user.first_name }} {{development.employee.user.last_name}}</td>            
+                <td>{{ development.cours}}</td>            
+                <td >{{ employee.coach.user.first_name }} {{development.employee.user.last_name}}</td>            
+                <td>{{ employee.initiated_date }}</td>
+                <td>{{ employee.status }}</td>
+               
+                <td class="text-center"><a href="{% url 'employee_detail' employee.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'employee_update' employee.id %}" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock body %}

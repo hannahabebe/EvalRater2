@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import * 
+from .models import *
 from employee.forms import EmployeeForm
 
 # admin.site.register(Role)
@@ -20,6 +20,8 @@ admin.site.register(Question)
 admin.site.register(Appraisal)
 admin.site.register(Document)
 admin.site.register(News)
+admin.site.register(Promotion)
+
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):

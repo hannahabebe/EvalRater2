@@ -10,11 +10,11 @@
     </li>
     <li class="vr bg-primary my-2 mx-2"></li>
     <li class="nav-item">
-        <a class="nav-link active" href="#"> List</a>
+        <a class="nav-link active" href="{% url 'competency' %}"> List</a>
 
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Add</a>
+        <a class="nav-link" href="{% url 'competency_create' %}">Add</a>
     </li>
 </ul>
 
@@ -42,8 +42,8 @@
                 <td class="align-middle">{{competency.designation}}</td>
                 <td class="align-middle">{{competency.weight}}</td>
                 <td class="align-middle">{{competency.initiated_date| date:"F j, Y" }}</td>
-                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
-                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+                <td class="text-center"><a href="{% url 'competency_detail' competency.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'competency_update' competency.id %}" ><i class="fas fa-edit"></i></a></td>
             </tr>
             {%endfor%}
         </tbody>

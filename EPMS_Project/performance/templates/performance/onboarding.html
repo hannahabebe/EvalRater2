@@ -47,8 +47,8 @@
                 <td>{{ employee.phone_number }}</td>
                 <td class="text-center">{{ employee.status }}</td>
                
-                <td class="text-center"><a href="#"><i class="fas fa-eye" ></i></a></td>
-                <td class="text-center"><a href="#" ><i class="fas fa-edit"></i></a></td>
+                <td class="text-center"><a href="{% url 'employee_detail' employee.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'employee_update' employee.id %}" ><i class="fas fa-edit"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

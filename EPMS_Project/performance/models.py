@@ -257,15 +257,29 @@ class Promotion(models.Model):
     reason = models.CharField(max_length=100, null=True)
     note = models.TextField(blank=True, null=True)
     bonus = models.DecimalField(
-        max_digits=5, decimal_places=2, blank=True, null=True)
-    new_salary = models.DecimalField(
-        max_digits=5, decimal_places=2, blank=True, null=True)
+        max_digits=10, decimal_places=2, blank=True, null=True)
     past_position = models.ForeignKey(
-        Employee, on_delete=models.SET_NULL, null=True, related_name='past')
+        Designation, on_delete=models.SET_NULL, null=True, related_name='past_position'
+    )
     new_position = models.ForeignKey(
-        Employee, on_delete=models.SET_NULL, null=True, related_name='new')
-    employment_type = models.ForeignKey(
-        Employee, on_delete=models.SET_NULL, null=True, blank=True)
+        Designation, on_delete=models.SET_NULL, null=True, related_name='new_position'
+    )
+    new_position = models.ForeignKey(
+        Designation, on_delete=models.SET_NULL, null=True, related_name='new')
+    employment_type = models.CharField(
+        max_length=20, choices=Employee.EMPLOYMENT_TYPE_CHOICES, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.employee:
+            current_designation = self.employee.designation
+            if self.past_position != current_designation:
+                self.past_position = current_designation
+            if self.new_position and self.new_position != current_designation:
+
+                self.employee.designation = self.new_position
+                self.employee.save()
+
+        super(Promotion, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.employee.id} - {self.employee.user.first_name} - Promoted"

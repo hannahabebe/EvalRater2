@@ -1,0 +1,56 @@
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+{% load i18n widget_tweaks %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'promotion' %}"> List</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'promotion_create' %}">Add</a>
+    </li>
+</ul>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card mb-4 mx-4">
+                <div class="card-body text-center">
+                    <div class="modal-dialog modal-lg" role="document">
+                    <form method="post" class="form">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Create Termination</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for field in form.visible_fields %}
+                                    <fieldset class="form-group">
+                                        <label for="exampleInputEmail1">
+                                        {{ field.label_tag }}
+                                    </label>
+                                    {{ field|attr:"class:form-control" }}
+                                </fieldset>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer mt-2">
+                                <input type="submit" class="btn btn-primary" value="Save" style="border-radius: .25rem;"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body%}
