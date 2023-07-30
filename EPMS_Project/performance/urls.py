@@ -83,8 +83,35 @@ urlpatterns = [
     path('panel/document_create',
          views.DocumentCreateView.as_view(), name='document_create'),
 
+    # Task URL
+    path('panel/tasks/', views.TaskListView.as_view(), name='tasks'),
+    path('panel/tasks/<int:pk>/', views.TaskDetailView.as_view(), name='task_detail'),
+    path('panel/tasks/create/', views.TaskCreateView.as_view(), name='task_create'),
+    path('panel/tasks/<int:pk>/update/',
+         views.TaskUpdateView.as_view(), name='task_update'),
 
-    path('panel/training', views.training, name='training'),
+    # Dev plan URL
+
+    path('panel/developmentplan/', views.DevelopmentPlanListView.as_view(),
+         name='developmentplan'),
+    path('panel/developmentplan/<int:pk>/', views.DevelopmentPlanDetailView.as_view(),
+         name='developmentplan_detail'),
+    path('panel/developmentplan/create/', views.DevelopmentPlanCreateView.as_view(),
+         name='developmentplan_create'),
+    path('panel/developmentplan/<int:pk>/update/', views.DevelopmentPlanUpdateView.as_view(),
+         name='developmentplan_update'),
+
+    # Training plan
+
+    path('panel/training/', views.TrainingListView.as_view(),
+         name='training'),
+    path('panel/training/<int:pk>/', views.TrainingDetailView.as_view(),
+         name='training_detail'),
+    path('panel/training/create/', views.TrainingCreateView.as_view(),
+         name='training_create'),
+    path('panel/training/<int:pk>/update/', views.TrainingUpdateView.as_view(),
+         name='training_update'),
+
     path('panel/development', views.development, name='development'),
     path('panel/onboarding', views.onboard, name='onboarding'),
 

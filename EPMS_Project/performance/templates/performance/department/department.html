@@ -1,0 +1,49 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'department' %}">List Department</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'department_create' %}">Add Department</a>
+    </li>
+</ul>
+
+<div class="table-responsive table-hover home-section px-lg-5">
+    <table class="table table-bordered caption-top">
+        <caption>List of Departments</caption>
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col">Department</th>
+                <th scope="col">Department Head</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created at</th>
+                <th class="px-3 text-center">View</th>
+                <th class="px-3 text-center">Edit</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for department in departments %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ department.department_name }}</td>
+                <td>{{ department.department_head }}</td>
+                <td>{{ department.status }}</td>
+                <td>{{ department.created_at }}</td>
+                <td class="text-center"><a href="{% url 'department_detail' department.pk %}"><i class="fas fa-eye"></i></a></td>
+                <td class="text-center"><a href="{% url 'department_update' department.pk %}"><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

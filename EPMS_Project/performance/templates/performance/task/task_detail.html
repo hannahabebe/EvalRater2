@@ -1,0 +1,104 @@
+<!-- performance/Createpromotion.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'tasks' %}">List Task</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'task_create' %}">Add Task</a>
+    </li>
+</ul>
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="mb-3">Task Detail</h4>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Title</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{task.title}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Description</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{task.description}} </p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Assigned To</p>
+              </div>
+              <div class="col-sm-8">
+                {% for employee in task.assigned_to.all %}
+                  <p class="text-muted mb-0">{{employee.user.first_name}} {{employee.user.last_name}}</p>
+                {% endfor %}
+                
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Due Date</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{task.due_date}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Priority</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{task.priority}}</p>
+              </div>
+            </div>
+            <hr>
+             <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Approval</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{task.approval}}</p>
+              </div>
+            </div>
+            <hr>
+             <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Performance Rating</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{task.performance_rating}}</p>
+              </div>
+            </div>
+            <hr>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

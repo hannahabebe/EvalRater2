@@ -1,0 +1,47 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'developmentplan' %}">List Development Plan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'developmentplan_create' %}">Add Development Plan</a>
+    </li>
+</ul>
+
+<div class="table-responsive table-hover home-section px-lg-5">
+    <table class="table table-bordered caption-top">
+        <caption>List of Development Plans</caption>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">IDP Name</th>
+                <th scope="col">Employee</th>
+                <th scope="col">Status</th>
+                <th class="px-3 text-center">View</th>
+                <th class="px-3 text-center">Edit</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for plan in developmentplans %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ plan.IDP_name }}</td>
+                <td>{{ plan.employee }}</td>
+                <td>{{ plan.status }}</td>
+                <td class="text-center"><a href="{% url 'developmentplan_detail' plan.pk %}"><i class="fas fa-eye"></i></a></td>
+                <td class="text-center"><a href="{% url 'developmentplan_update' plan.pk %}"><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

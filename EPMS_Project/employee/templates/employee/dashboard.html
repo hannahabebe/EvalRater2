@@ -1,0 +1,157 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+<ul class="nav panelNav fw-medium ">
+    <li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
+        </li>
+        <li class="vr bg-primary my-2 mx-2"></li>
+            <li class="nav-item">
+                 <a class="nav-link" href="{% url 'employee_profile' %}"> Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'appraisal' %}">Teams</a>
+            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">My Info</a>
+        </li>
+    </li>
+    <li class="d-flex justify-content-end " style="width:55% ;">
+        <li class="vr bg-primary my-2 mx-2"></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#"><i class="fa fa-bell"></i></a>
+        </li>
+    </li>
+</ul>
+ 
+
+
+<section class="home-section px-lg-5">
+    <!-- FOR ADMINS -->
+    <div class="pt-5">
+        <div class="row m-0 p-0 adminCard">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="{% url 'employees' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fa fa-3x fa-user-tie"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Task Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="{% url 'onboarding' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fa fa-3x fa-handshake"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Task Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="{% url 'probation' %}" class="text-decoration-none"> 
+                    <div class="card">
+                        <div class="card-body row d-flex justisfy-content-center">
+                            <div class="col-4">
+                                <i class="fa fa-3x fa-clipboard-user"></i>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <!-- Count No -->
+                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <p class="card-text float-end">Task Inprogress</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- CARDS -->
+        <div class="row mt-5 m-0 p-0">
+             <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
+                <div class="charts card border-0">
+                    <div class="card-header chart doughnut-chart bg-body-secondary border-0 text-primary fw-bold">
+                        <i class="fa fa-bolt"></i> Quick Access
+                    </div> 
+                    <div class="card-body">
+                        <ul>
+                            {% if appraisal %}
+                            <li><a href="{% url 'appraisal_detail' appraisal.id %}">My Appraisal</a></li>
+                            {% else %}
+                            <li><a href="" class="text-muted text-decoration-line-through ">No Appraisal</a></li>
+                            {% endif %}
+                            <li><a href="">Request Task</a></li>
+                            <li><a href="">Individual development plan</a></li>
+                            <li><a href="">Training</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
+                <div class="card border-0">
+                    <div class="card-header bg-body-secondary border-0 text-primary fw-bold">
+                        <i class="bx bx-file"></i> Latest Documents
+                    </div> 
+                    <div class="card-body">
+                        {% for document in documents%}
+                        <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
+                            <div class="col-lg-10 col-md-8 col-6">
+                                <h6 class="card-title ">{{document.title}}</h6> 
+                                <p class="card-text">
+                                    <i class="fa fa-user-ninja small"></i> {{document.author}} |
+                                    <i class="far fa-clock small"></i> {{document.created_at}}
+                                </p>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
+                            </div>
+                        </a> <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
+                <div class="card border-0">
+                    <div class="card-header bg-body-secondary border-0 text-primary fw-bold">
+                        <i class="bx bx-news"></i> Latest News
+                    </div>
+                    <div class="card-body">
+                        {% for news in newses %}
+                        <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
+                            <div class="col-lg-10 col-md-8 col-6">
+                                <h6 class="card-title ">{{news.title}}</h6> 
+                                <p class="card-text">
+                                    <i class="fa fa-user-ninja small"></i> {{news.publisher}} |
+                                    <i class="far fa-clock small"></i> {{news.created_at}}
+                                </p>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <img src="{% static 'performance/images/user.png' %}" width="40px" alt="">
+                            </div>
+                        </a> <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    
+    </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,119 @@
+<!-- performance/Createpromotion.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'training' %}">List Training</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'training_create' %}">Add Training</a>
+    </li>
+</ul>
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4 col-md-4"> 
+        <div class="card mb-4" style="height:90%;">
+          <div class="card-body">
+            <h4 class="mb-3">Training Detail</h4>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Course</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{training_detail.training_course}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Initiated Date</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{training_detail.initiated_date}}</p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Status</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{training_detail.status}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Start Date</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{training_detail.start_date}}</p>
+              </div>
+            </div>
+            
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">End Date</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">{{training_detail.end_date}}</p>
+              </div>
+            </div>
+            
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-4"> 
+        <div class="card mb-4" style="height:90%;">
+          <div class="card-body">
+            <h4 class="mb-3">Trainers</h4>
+       <div class="row">
+              <div class="col-sm-12">
+                {% for coach in training_detail.trainer.coach.all %}
+                <div class="d-flex justify-content-between m-2">
+                    <img src= "/media/avatar/user.png" style="width: 25px;"
+                     <p class="text-muted mb-0">{{coach}}</p>
+                  </div>
+                  <hr>
+                {% endfor %}
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-4"> 
+        <div class="card mb-4" style="height:90%;">
+          <div class="card-body">
+            <h4 class="mb-3">Participants</h4>
+              <div class="row">
+                <div class="col-sm-12">
+                  {% for participant in training_detail.participants.all %}
+                  <div class="d-flex justify-content-between m-2">
+                    <img src= "/media/avatar/user.png" style="width: 25px;"
+                     <p class="text-muted mb-0">{{participant}}</p>
+                  </div>
+                  <hr>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

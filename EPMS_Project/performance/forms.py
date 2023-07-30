@@ -63,3 +63,21 @@ class NewsForm(forms.ModelForm):
     class Meta:
         model = News
         fields = "__all__"
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = '__all__'
+
+
+class DevelopmentPlanForm(forms.ModelForm):
+    class Meta:
+        model = DevelopmentPlan
+        fields = '__all__'
+
+
+class TrainingForm(forms.ModelForm):
+    class Meta:
+        model = Training
+        fields = '__all__'

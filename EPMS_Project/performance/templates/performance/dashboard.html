@@ -14,7 +14,10 @@
         <a class="nav-link" href="{% url 'appraisal' %}">Appraisal</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Reports</a>
+        <a class="nav-link" href="{% url 'tasks' %}">Tasks</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'developmentplan' %}">Development Plans</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Announcement</a>
@@ -172,13 +175,13 @@
                         <i class="bx bx-file"></i> Latest Documents
                     </div> 
                     <div class="card-body">
-                        {% for news in newses%}
+                        {% for document in documents%}
                         <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
                             <div class="col-lg-10 col-md-8 col-6">
-                                <h6 class="card-title ">{{news.title}}</h6> 
+                                <h6 class="card-title ">{{document.title}}</h6> 
                                 <p class="card-text">
-                                    <i class="fa fa-user-ninja small"></i> {{news.author}} |
-                                    <i class="far fa-clock small"></i> {{created_at}}
+                                    <i class="fa fa-user-ninja small"></i> {{document.author}} |
+                                    <i class="far fa-clock small"></i> {{document.created_at}}
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-4 col-6">

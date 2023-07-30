@@ -68,7 +68,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #     del kwargs['to']
     #     return name, path, args, kwargs
 
-
     def __str__(self):
         return self.user_id
 
@@ -323,27 +322,15 @@ class Training(models.Model):
         ('PA', 'Pending Approval'),
         ('S', 'Scheduled'),
         ('C', 'Completed'),
-        ('C', 'Cancelled'),
+        ('CA', 'Cancelled'),
     )
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, null=True)
     description = models.TextField(blank=True, null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
 
-    def clean(self):
-        fulltime_permanent_employees = Employee.objects.filter(
-            employment_type='fulltime_permanent')
-        for participant in self.participants.all():
-            if participant not in fulltime_permanent_employees:
-                raise ValidationError(
-                    f"{participant} is not a fulltime_permanent employee and cannot be added as a participant.")
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
-
     def __str__(self):
-        return self.training_course
+        return str(self.training_course)
 
 # Development Model
 

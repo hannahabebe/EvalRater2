@@ -4,10 +4,19 @@
 {% block body %}
 
 {% load i18n widget_tweaks %}
-
-
-
-
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+             <li class="nav-item">
+                 <a class="nav-link" href="{% url 'employee_profile' %}"> Profile</a>
+            </li>
+            <li class="nav-item">
+                 <a class="nav-link active" href="{% url 'employee_edit_profile' %}"> Edit</a>
+            </li>
+    </li>
+</ul>
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-4">
@@ -15,14 +24,14 @@
           <div class="card-body text-center">
             <img src="/media/avatar/user.png" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3">{{promotion_detail.employee.user.first_name}} {{promotion_detail.user.last_name}}</h5>
+            <h5 class="my-3">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</h5>
                
-            <p class="text-muted mb-1"> {{promotion_detail.employee.designation}}</p>
-            <p class="text-muted mb-2">{{promotion_detail.employee.address}}</p>
+            <p class="text-muted mb-1"> {{employee_detail.designation}}</p>
+            <p class="text-muted mb-2">{{employee_detail.address}}</p>
 
 
             <div class="d-flex align-items-center m-0 mb-3"> 
-                {% if promotion_detail.employee.status == "A" %}
+                {% if employee_detail.status == "A" %}
                 <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
                 <p class="m-0">Active</p>
                 {% else %}
@@ -32,8 +41,8 @@
             </div>
 
              <div>
-                <p style="font-size: 14px; margin:1px;" class="text-secondary">Created at {{promotion_detail.employee.created_at}} </p>
-                <p style="font-size: 14px; margin:1px;" class="text-secondary">Last Modified at {{promotion_detail.employee.updated_at}} </p>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Created at {{employee_detail.created_at}} </p>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Last Modified at {{employee_detail.updated_at}} </p>
             </div>
           </div>
         </div>
@@ -45,8 +54,8 @@
                     <form method="post" class="form">
                         {% csrf_token %}
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Edit Promotion</h4>
+                            <div class="modal-header mb-3">
+                                <h4 class="modal-title">Edit Profile</h4>
                             </div>
                             <div class="modal-body">
                                 {% for field in form.visible_fields %}

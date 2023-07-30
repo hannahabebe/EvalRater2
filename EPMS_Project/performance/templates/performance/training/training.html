@@ -10,11 +10,11 @@
     </li>
     <li class="vr bg-primary my-2 mx-2"></li>
     <li class="nav-item">
-        <a class="nav-link active" href="#"> List</a>
+        <a class="nav-link active" href="training">List Training</a>
 
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Add</a>
+        <a class="nav-link" href="{% url 'training_create' %}">Add Training</a>
     </li>
 </ul>
 
@@ -26,7 +26,7 @@
             <tr>
                 <th>#</th>
                 <th class="px-3" style="font-size: 14px;">Training Course</th>
-                <th class="px-3" style="font-size: 14px;">Trainer</th>
+                
                 <th class="px-3" style="font-size: 14px;">Initiated Date</th>
                
                 <th class="px-3" style="font-size: 14px;">View</th>
@@ -38,13 +38,12 @@
             <tr>
                 <th scope="row">{{forloop.counter}}</th>
             
-                <td>{{ training.training_course.course_name }}</td>
-                <td>{{ training.trainer.coach }}</td>            
+                <td>{{ training.training_course.course_name }}</td>          
                 <td>{{ training.initiated_date }}</td>            
                 
                
-                <td class="text-center"><a href="{% url 'employee_detail' employee.id %}"><i class="fas fa-eye" ></i></a></td>
-                <td class="text-center"><a href="{% url 'employee_update' employee.id %}" ><i class="fas fa-edit"></i></a></td>
+                <td class="text-center"><a href="{% url 'training_detail' training.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'training_update' training.id %}" ><i class="fas fa-edit"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

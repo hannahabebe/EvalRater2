@@ -377,6 +377,105 @@ class NewsUpdateView(UpdateView):
         return reverse('news')
 
 
+class TaskListView(ListView):
+    model = Task
+    template_name = 'performance/task/task.html'
+    context_object_name = 'tasks'
+
+
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = 'performance/task/task_detail.html'
+    context_object_name = 'task'
+
+
+class TaskCreateView(CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'performance/task/task_create.html'
+    success_url = reverse_lazy('tasks')
+
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    template_name = 'performance/task/task_update.html'
+    form_class = TaskForm
+    context_object_name = 'task'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('tasks')
+
+
+class DevelopmentPlanListView(ListView):
+    model = DevelopmentPlan
+    template_name = 'performance/IDP/idp.html'
+    context_object_name = 'developmentplans'
+
+
+class DevelopmentPlanDetailView(DetailView):
+    model = DevelopmentPlan
+    template_name = 'performance/IDP/idp_detail.html'
+    context_object_name = 'developmentplan_detail'
+
+
+class DevelopmentPlanCreateView(CreateView):
+    model = DevelopmentPlan
+    template_name = 'performance/IDP/idp_create.html'
+    form_class = DevelopmentPlanForm
+    success_url = reverse_lazy('developmentplan')
+
+
+class DevelopmentPlanUpdateView(UpdateView):
+    model = DevelopmentPlan
+    template_name = 'performance/IDP/idp_update.html'
+    form_class = DevelopmentPlanForm
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('developmentplan')
+
+# Training view
+
+
+class TrainingListView(ListView):
+    model = Training
+    template_name = 'performance/training/training.html'
+    context_object_name = 'trainings'
+
+
+class TrainingDetailView(DetailView):
+    model = Training
+    template_name = 'performance/training/training_detail.html'
+    context_object_name = 'training_detail'
+
+
+class TrainingCreateView(CreateView):
+    model = Training
+    template_name = 'performance/training/training_create.html'
+    form_class = TrainingForm
+    success_url = reverse_lazy('training')
+
+
+class TrainingUpdateView(UpdateView):
+    model = Training
+    template_name = 'performance/training/training_update.html'
+    form_class = TrainingForm
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('training')
+
+
 class DocumentListView(ListView):
     model = News
     template_name = 'performance/document/document.html'
