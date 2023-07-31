@@ -26,7 +26,6 @@
             <th scope="col">Full name</th>
             <th scope="col">Date of promotion</th>
             <th scope="col">Bonus</th>
-            <th scope="col">New Salary</th>
             <th scope="col">Past Position</th>
             <th scope="col">New Position</th>
             <th class="px-3">View</th>
@@ -36,17 +35,19 @@
         </thead>
         <tbody class="table-group-divider">
             {% for promotion in promotions %}
+            {% if promotion.employee.status == "A" %}
             <tr>
+                
                 <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
                 <td>{{promotion.employee.user.first_name}} {{promotions.employee.user.last_name}}</td>
                 <td>{{promotion.date_of_promotion}}</td>
                 <td>{{promotion.bonus}}</td>
-                <td>{{promotion.new_salary}}</td>
                 <td style="text-align:left;">{{promotion.past_position}}</td>
                 <td style="text-align:left;">{{promotion.new_position}}</td>
                 <td class="text-center"><a href="{% url 'promotion_detail' promotion.id %}"><i class="fas fa-eye" ></i></a></td>
                 <td class="text-center"><a href="{% url 'promotion_update' promotion.id %}" ><i class="fas fa-edit"></i></a></td>
             </tr>
+            {% endif %}
             {%endfor%}
         </tbody>
     </table>

@@ -35,11 +35,12 @@
             
                 <th class="px-3" style="font-size: 14px;">Status</th>
                 <th class="px-3" style="font-size: 14px;">View</th>
-                <th class="px-3" style="font-size: 14px;">Edit</th>
+
             </tr>
         </thead>
         <tbody class="table-caption-top">
             {% for employee in employee_on_probation %}
+            {% if employee.status != "fulltime_permanent" %}
             <tr>
                 <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
                 <td>{{ employee.user.user_id }}</td>
@@ -51,8 +52,9 @@
                 <td class="text-center">{{ employee.status }}</td>
                
                 <td class="text-center"><a href="{% url 'employee_detail' employee.id %}"><i class="fas fa-eye" ></i></a></td>
-                <td class="text-center"><a href="{% url 'employee_update' employee.id %}" ><i class="fas fa-edit"></i></a></td>
+                
             </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

@@ -14,7 +14,7 @@
                 <a class="nav-link active btn" aria-current="page"  href="#" ><i class="fa fa-home"> Home</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link btn" href="{% url 'employee' %}" ><i class="fa fa-arrow-circle-left"> Back</i></a>
+                <a class="nav-link btn" href="{% url 'employees' %}" ><i class="fa fa-arrow-circle-left"> Back</i></a>
             </li>
         </ul>
     </nav>
@@ -32,7 +32,15 @@
         </div>
     {% endfor %}
     {% endif %}
-
+    {% if profile_form.errors %}
+  <ul>
+    {% for field in profile_form %}
+      {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %}
     <div class="m-0 p-0">
         <div class="row m-0 p-0 d-flex align-items-center">
             <div class="col-lg-6 col-12 m-0 p-0">

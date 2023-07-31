@@ -15,7 +15,7 @@
                 <a class="nav-link" href="{% url 'appraisal' %}">Teams</a>
             </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">My Info</a>
+            <a class="nav-link" href="{% url 'my_task' %}">My Tasks</a>
         </li>
     </li>
     <li class="d-flex justify-content-end " style="width:55% ;">
@@ -40,7 +40,7 @@
                                 <i class="fa fa-3x fa-user-tie"></i>
                             </div>
                             <div class="col-8 align-self-center">
-                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <h4 class="card-title fw-bold text-end mb-0">{{completed_tasks}}</h4>
                                 <p class="card-text float-end">Task Completed</p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-8 align-self-center">
                                 <!-- Count No -->
-                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <h4 class="card-title fw-bold text-end mb-0">{{pending_tasks}}</h4>
                                 <p class="card-text float-end">Task Pending</p>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-8 align-self-center">
                                 <!-- Count No -->
-                                <h4 class="card-title fw-bold text-end mb-0">1000</h4>
+                                <h4 class="card-title fw-bold text-end mb-0">{{in_progress_tasks}}</h4>
                                 <p class="card-text float-end">Task Inprogress</p>
                             </div>
                         </div>

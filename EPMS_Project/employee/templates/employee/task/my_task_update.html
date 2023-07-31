@@ -3,6 +3,8 @@
 
 {% load static %}
 {% block body %}
+
+{% load widget_tweaks %}
 <ul class="nav panelNav fw-medium">
     <li class="nav-item">
         <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
@@ -16,10 +18,11 @@
         <a class="nav-link" href="{% url 'task_create' %}">Add Task</a>
     </li>
 </ul>
-<section>
+<form method="post" class="form">
+   {% csrf_token %}
   <div class="container py-5">
     <div class="row">
-      <div class="col-lg-10 mx-auto">
+      <div class="col-lg-6 mx-auto">
         <div class="card mb-4">
           <div class="card-body">
             <h4 class="mb-3">Task Detail</h4>
@@ -28,7 +31,7 @@
                 <p class="mb-0">Title</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{task.title}}</p>
+                <p class="text-muted mb-0 text-end">{{my_task_detail.title}}</p>
               </div>
             </div>
             <hr>
@@ -37,16 +40,16 @@
                 <p class="mb-0">Description</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{task.description}} </p>
+                <p class="text-muted mb-0 text-end">{{my_task_detail.description}} </p>
               </div>
             </div>
              <hr>
             <div class="row">
               <div class="col-sm-4">
-                <p class="mb-0">Assigned To</p>
+                <p class="mb-0">Assigned By</p>
               </div>
               <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{task.assigned_to}}</p>
+                  <p class="text-muted mb-0 text-end">{{my_task_detail.assigned_to}}</p>
               </div>
             </div>
             <hr>
@@ -55,7 +58,7 @@
                 <p class="mb-0">Due Date</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{task.due_date}}</p>
+                <p class="text-muted mb-0 text-end">{{my_task_detail.due_date}}</p>
               </div>
             </div>
             <hr>
@@ -64,7 +67,20 @@
                 <p class="mb-0">Priority</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{task.priority}}</p>
+                <p class="text-muted mb-0 text-end">{{my_task_detail.priority}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Status</p>
+              </div>
+              <div class="col-sm-8 d-flex justify-content-end">
+                   
+                       
+                              {{form.status}}
+                        
+                   
               </div>
             </div>
             <hr>
@@ -73,7 +89,7 @@
                 <p class="mb-0">Approval</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{task.approval}}</p>
+                <p class="text-muted mb-0 text-end">{{my_task_detail.approval}}</p>
               </div>
             </div>
             <hr>
@@ -82,10 +98,24 @@
                 <p class="mb-0">Performance Rating</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{task.performance_rating}}</p>
+                {% if my_task_detail.performance_rating == "" %}
+                <p class="text-muted mb-0">Awaiting Raiting</p>
+                {% else %}
+                <p class="text-muted mb-0 text-end">{{my_task_detail.performance_rating}}</p>
+                {% endif %}
+                 
+                
+                
               </div>
             </div>
             <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                     
+                                <input type="submit" class="btn btn-primary" value="Save" style="border-radius: .25rem;"/>
+                            
+              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -93,7 +123,7 @@
       </div>
     </div>
   </div>
-</section>
+ </form>
 {% endblock body%}
 
 

@@ -36,7 +36,7 @@
                 <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
                 <td class="align-middle text-center">{{employee.employee.user.first_name}} {{employee.employee.user.last_name}}</td>
                 <td class="align-middle text-center">{{employee.date_of_termination}}</td>
-                <td class="text-center"><a href="{% url 'employee_detail' employee.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'employee_detail' employee.employee.id %}"><i class="fas fa-eye" ></i></a></td>
                 <td class="text-center"><a href="{% url 'termination_update' employee.id %}" ><i class="fas fa-edit"></i></a></td>
             </tr>
             {%endfor%}

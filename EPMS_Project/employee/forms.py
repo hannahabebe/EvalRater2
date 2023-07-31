@@ -76,3 +76,10 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         exclude = ["joined_date", "department", "designation",
                    "employment_type", "salary", "promotion_designation", "manager", "created_at", "updated_at", "status", "note"]
+
+
+class MyTaskForm(forms.ModelForm):
+    class Meta:
+
+        model = Task
+        fields = ["status"]

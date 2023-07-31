@@ -1,0 +1,64 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'tasks' %}">List Tasks</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'task_create' %}">Add Task</a>
+    </li>
+</ul>
+
+<div class="table-responsive table-hover home-section p-lg-3">
+    
+    <table class="table table-bordered caption-top">
+        <caption>List of Tasks</caption> 
+        <thead>
+            <tr>
+                <th></th>
+                <th class="px-3" style="font-size: 14px;">Title</th>
+                <th class="px-3" style="font-size: 14px;">Due Date</th>
+                <th class="px-3" style="font-size: 14px;">Status</th>
+                <th class="px-3" style="font-size: 14px;">Priority</th>
+                <th class="px-3" style="font-size: 14px;">Performance Rating</th>
+                <th class="px-3" style="font-size: 14px;">Edit</th>
+            </tr>
+        </thead>
+        <tbody class="table-caption-top">
+            {% for task in tasks %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ task.title }}</td>         
+                <td>{{ task.due_date }}</td>            
+                {% if task.status == "pending" %}          
+                <td style ="color:#f7d635;">Pending</td>
+                {% endif %}
+                {% if task.status == "completed" %}          
+                <td style ="color:#5454e8;">Completed</td>
+                {% endif %}
+                {% if task.status == "in_progress" %}          
+                <td style ="color:#A4DD74;">Inprogress</td>
+                {% endif %}
+                {% if task.status == "overdue" %}          
+                <td style ="color:#a1a1a1;">Overdue</td>
+                {% endif %}
+                <td>{{ task.priority }}</td>
+                <td>{{ task.performance_rating }}</td>
+                <td class="text-center"><a href="{% url 'my_task_update' task.id %}" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock body %}

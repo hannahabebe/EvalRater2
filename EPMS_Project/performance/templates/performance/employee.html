@@ -36,6 +36,7 @@
         <tbody class="table-caption-top">
             {% for employee in page_obj %}
             <tr>
+                {% if employee.status == "A" %}
                 <td class="text-center"><img src="/media/avatar/user.png" style="width:35px; height:35px; border-radius: 100%;"></td>
                 <td>{{ employee.user.user_id }}</td>
                 <td>{{ employee.user.first_name }} {{employee.user.last_name}}</td>            
@@ -46,6 +47,7 @@
                
                 <td class="text-center"><a href="{% url 'employee_detail' employee.id %}"><i class="fas fa-eye" ></i></a></td>
                 <td class="text-center"><a href="{% url 'employee_update' employee.id %}" ><i class="fas fa-edit"></i></a></td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

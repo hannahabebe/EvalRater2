@@ -10,6 +10,13 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.shortcuts import reverse, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import user_passes_test
+
+
+def is_manager(user):
+    return user.is_authenticated and user.is_manager
 
 
 def get_onboard_employee():
@@ -26,7 +33,7 @@ def get_employee_with_probation():
     return employee_on_probation
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def Profile(request):
     ur = CustomUser.objects.get(user_id=request.user.user_id)
     employee = Employee.objects.get(user=ur)
@@ -34,17 +41,17 @@ def Profile(request):
     return render(request, 'performance/profile.html', context)
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def index(request):
     return render(request, 'performance/index.html')
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def menu(request):
     return render(request, 'performance/menu.html')
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def dashboard(request):
     employee_count = Employee.objects.count()
     onboard_employee_count = get_onboard_employee().count()
@@ -64,30 +71,42 @@ def dashboard(request):
     return render(request, 'performance/dashboard.html', context)
 
 
-class DepartmentListView(ListView):
+class DepartmentListView(UserPassesTestMixin, PermissionRequiredMixin, ListView):
     model = Department
     template_name = 'performance/department/department.html'
     context_object_name = 'departments'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DepartmentDetailView(DetailView):
+
+class DepartmentDetailView(UserPassesTestMixin, DetailView):
     model = Department
     template_name = 'performance/department/department_detail.html'
     context_object_name = 'department_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DepartmentCreateView(CreateView):
+
+class DepartmentCreateView(UserPassesTestMixin, CreateView):
     model = Department
     form_class = DepartmentForm
     template_name = 'performance/department/department_create.html'
     success_url = reverse_lazy('department')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DepartmentUpdateView(UpdateView):
+
+class DepartmentUpdateView(UserPassesTestMixin, UpdateView):
     model = Department
     template_name = 'performance/department/department_update.html'
     form_class = DepartmentForm
     context_object_name = 'department_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -97,16 +116,25 @@ class DepartmentUpdateView(UpdateView):
         return reverse('department')
 
 
-class EmployeeListView(ListView):
+class EmployeeListView(UserPassesTestMixin,  ListView):
     model = Employee
     template_name = 'performance/employee.html'
     context_object_name = 'page_obj'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class EmployeeDetailView(DetailView):
+    def get_queryset(self):
+        return Employee.objects.exclude(status='In')
+
+
+class EmployeeDetailView(UserPassesTestMixin, DetailView):
     model = Employee
     template_name = 'performance/employee_detail.html'
     context_object_name = 'employee_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
 
 """
@@ -123,11 +151,14 @@ class EmployeeCreateView(CreateView):
 """
 
 
-class EmployeeUpdateView(UpdateView):
+class EmployeeUpdateView(UserPassesTestMixin, UpdateView):
     model = Employee
     template_name = 'performance/employee_update.html'
     form_class = EmployeeUpdateForm
     context_object_name = 'employee_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -137,56 +168,68 @@ class EmployeeUpdateView(UpdateView):
         return reverse('employees')
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def training(request):
     trainings = Training.objects.all()
     context = {"trainings": trainings}
     return render(request, 'performance/training.html', context)
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def development(request):
     developments = DevelopmentPlan.objects.all()
     context = {"developments": developments}
     return render(request, 'performance/development.html', context)
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def panel(request):
     return render(request, 'performance/adminPanel.html')
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def onboard(request):
     onboard_employees = get_onboard_employee()
     context = {"onboard_employees": onboard_employees}
     return render(request, 'performance/onboarding.html', context)
 
 
-class PromotionListView(ListView):
+class PromotionListView(UserPassesTestMixin, ListView):
     model = Promotion
     template_name = 'performance/promotion/promotion.html'
     context_object_name = 'promotions'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class PromotionDetailView(DetailView):
+
+class PromotionDetailView(UserPassesTestMixin, DetailView):
     model = Promotion
     template_name = 'performance/promotion/promotion_detail.html'
     context_object_name = 'promotion_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class PromotionCreateView(CreateView):
+
+class PromotionCreateView(UserPassesTestMixin, CreateView):
     model = Promotion
     form_class = PromotionForm
     template_name = 'performance/promotion/promotion_create.html'
     success_url = reverse_lazy('promotion')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class PromotionUpdateView(UpdateView):
+
+class PromotionUpdateView(UserPassesTestMixin, UpdateView):
     model = Promotion
     template_name = 'performance/promotion/promotion_update.html'
     form_class = PromotionForm
     context_object_name = 'promotion_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -196,45 +239,49 @@ class PromotionUpdateView(UpdateView):
         return reverse('promotion')
 
 
-@login_required(login_url="/employees/login")
+@user_passes_test(is_manager)
 def probate(request):
     employee_on_probation = get_employee_with_probation()
     context = {"employee_on_probation": employee_on_probation}
     return render(request, 'performance/probation.html', context)
 
 
-@login_required(login_url="/employees/login")
-def terminate(request):
-    terminated = Termination.objects.all()
-    print(terminated)
-    context = {"terminated": terminated}
-    return render(request, 'performance/termination.html', context)
-
-
-class CourseListView(ListView):
+class CourseListView(UserPassesTestMixin, ListView):
     model = Course
     template_name = 'performance/course/courses.html'
     context_object_name = 'courses'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class CourseDetailView(DetailView):
+
+class CourseDetailView(UserPassesTestMixin, DetailView):
     model = Course
     template_name = 'performance/course/course_detail.html'
     context_object_name = 'course_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class CourseCreateView(CreateView):
+
+class CourseCreateView(UserPassesTestMixin, CreateView):
     model = Course
     form_class = CourseForm
     template_name = 'performance/course/course_create.html'
     success_url = reverse_lazy('course')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class CourseUpdateView(UpdateView):
+
+class CourseUpdateView(UserPassesTestMixin, UpdateView):
     model = Course
     template_name = 'performance/course/course_update.html'
     form_class = CourseForm
     context_object_name = 'course_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -244,30 +291,42 @@ class CourseUpdateView(UpdateView):
         return reverse('course')
 
 
-class CompetencyListView(ListView):
+class CompetencyListView(UserPassesTestMixin, ListView):
     model = Competency
     template_name = 'performance/competency/competency.html'
     context_object_name = 'employee_competency'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class CompetencyDetailView(DetailView):
+
+class CompetencyDetailView(UserPassesTestMixin, DetailView):
     model = Competency
     template_name = 'performance/competency/competency_detail.html'
     context_object_name = 'competency_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class CompetencyCreateView(CreateView):
+
+class CompetencyCreateView(UserPassesTestMixin, CreateView):
     model = Competency
     form_class = CompetencyForm
     template_name = 'performance/competency/competency_create.html'
     success_url = reverse_lazy('competency')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class CompetencyUpdateView(UpdateView):
+
+class CompetencyUpdateView(UserPassesTestMixin, UpdateView):
     model = Competency
     template_name = 'performance/competency/competency_update.html'
     form_class = CompetencyForm
     context_object_name = 'competency_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -277,24 +336,44 @@ class CompetencyUpdateView(UpdateView):
         return reverse('competency')
 
 
-class TerminationListView(ListView):
+class TerminationListView(UserPassesTestMixin, ListView):
     model = Termination
     template_name = 'performance/termination/termination.html'
     context_object_name = 'terminated'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TerminationCreateView(CreateView):
+
+class TerminationCreateView(UserPassesTestMixin, CreateView):
     model = Termination
     form_class = TerminationForm
     template_name = 'performance/termination/termination_create.html'
     success_url = reverse_lazy('termination')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TerminationUpdateView(UpdateView):
+    def form_valid(self, form):
+        # Save the termination record
+        response = super().form_valid(form)
+        # Get the related employee object
+        employee = form.cleaned_data['employee']
+        # Update the status of the employee
+        employee.status = 'In'
+        employee.save()
+
+        return response
+
+
+class TerminationUpdateView(UserPassesTestMixin, UpdateView):
     model = Termination
     template_name = 'performance/termination/termination_update.html'
     form_class = TerminationForm
     context_object_name = 'termination_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -304,30 +383,51 @@ class TerminationUpdateView(UpdateView):
         return reverse('termination')
 
 
-class AppraisalListView(ListView):
+class AppraisalListView(UserPassesTestMixin, ListView):
     model = Appraisal
     template_name = 'performance/appraisal/appraisal.html'
     context_object_name = 'appraisals'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class AppraisalDetailView(DetailView):
+
+class AppraisalDetailView(UserPassesTestMixin, DetailView):
     model = Appraisal
     template_name = 'performance/appraisal/appraisal_detail.html'
     context_object_name = 'appraisal_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class AppraisalCreateView(CreateView):
+
+class AppraisalCreateView(UserPassesTestMixin, CreateView):
     model = Appraisal
     form_class = AppraisalForm
     template_name = 'performance/appraisal/appraisal_create.html'
     success_url = reverse_lazy('appraisal')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class AppraisalUpdateView(UpdateView):
+    def form_valid(self, form):
+
+        employee_id = form.cleaned_data['employee'].user_id
+        employee = get_object_or_404(Employee, user_id=employee_id)
+        form.instance.department = employee.department
+        form.instance.designation = employee.designation
+
+        return super().form_valid(form)
+
+
+class AppraisalUpdateView(UserPassesTestMixin, UpdateView):
     model = Appraisal
     template_name = 'performance/appraisal/appraisal_update.html'
     form_class = AppraisalForm
     context_object_name = 'appraisal_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -337,37 +437,52 @@ class AppraisalUpdateView(UpdateView):
         return reverse('appraisal')
 
 
-class QuestionCreateView(CreateView):
+class QuestionCreateView(UserPassesTestMixin, CreateView):
     model = Question
     form_class = QuestionForm
     template_name = 'performance/appraisal/question_create.html'
     success_url = reverse_lazy('appraisal')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class NewsListView(ListView):
+
+class NewsListView(UserPassesTestMixin, ListView):
     model = News
     template_name = 'performance/news/news.html'
     context_object_name = 'newses'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class NewsDetailView(DetailView):
+
+class NewsDetailView(UserPassesTestMixin, DetailView):
     model = News
     template_name = 'performance/news/news_detail.html'
     context_object_name = 'news'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class NewsCreateView(CreateView):
+
+class NewsCreateView(UserPassesTestMixin, CreateView):
     model = News
     form_class = NewsForm
     template_name = 'performance/news/news_create.html'
     success_url = reverse_lazy('news')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class NewsUpdateView(UpdateView):
+
+class NewsUpdateView(UserPassesTestMixin, UpdateView):
     model = News
     template_name = 'performance/news/news_update.html'
     form_class = NewsForm
     context_object_name = 'news'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -377,30 +492,42 @@ class NewsUpdateView(UpdateView):
         return reverse('news')
 
 
-class TaskListView(ListView):
+class TaskListView(UserPassesTestMixin, ListView):
     model = Task
     template_name = 'performance/task/task.html'
     context_object_name = 'tasks'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TaskDetailView(DetailView):
+
+class TaskDetailView(UserPassesTestMixin, DetailView):
     model = Task
     template_name = 'performance/task/task_detail.html'
     context_object_name = 'task'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TaskCreateView(CreateView):
+
+class TaskCreateView(UserPassesTestMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = 'performance/task/task_create.html'
     success_url = reverse_lazy('tasks')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TaskUpdateView(UpdateView):
+
+class TaskUpdateView(UserPassesTestMixin, UpdateView):
     model = Task
     template_name = 'performance/task/task_update.html'
     form_class = TaskForm
     context_object_name = 'task'
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -410,29 +537,41 @@ class TaskUpdateView(UpdateView):
         return reverse('tasks')
 
 
-class DevelopmentPlanListView(ListView):
+class DevelopmentPlanListView(UserPassesTestMixin, ListView):
     model = DevelopmentPlan
     template_name = 'performance/IDP/idp.html'
     context_object_name = 'developmentplans'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DevelopmentPlanDetailView(DetailView):
+
+class DevelopmentPlanDetailView(UserPassesTestMixin, DetailView):
     model = DevelopmentPlan
     template_name = 'performance/IDP/idp_detail.html'
     context_object_name = 'developmentplan_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DevelopmentPlanCreateView(CreateView):
+
+class DevelopmentPlanCreateView(UserPassesTestMixin, CreateView):
     model = DevelopmentPlan
     template_name = 'performance/IDP/idp_create.html'
     form_class = DevelopmentPlanForm
     success_url = reverse_lazy('developmentplan')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DevelopmentPlanUpdateView(UpdateView):
+
+class DevelopmentPlanUpdateView(UserPassesTestMixin, UpdateView):
     model = DevelopmentPlan
     template_name = 'performance/IDP/idp_update.html'
     form_class = DevelopmentPlanForm
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -444,29 +583,41 @@ class DevelopmentPlanUpdateView(UpdateView):
 # Training view
 
 
-class TrainingListView(ListView):
+class TrainingListView(UserPassesTestMixin, ListView):
     model = Training
     template_name = 'performance/training/training.html'
     context_object_name = 'trainings'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TrainingDetailView(DetailView):
+
+class TrainingDetailView(UserPassesTestMixin, DetailView):
     model = Training
     template_name = 'performance/training/training_detail.html'
     context_object_name = 'training_detail'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TrainingCreateView(CreateView):
+
+class TrainingCreateView(UserPassesTestMixin, CreateView):
     model = Training
     template_name = 'performance/training/training_create.html'
     form_class = TrainingForm
     success_url = reverse_lazy('training')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class TrainingUpdateView(UpdateView):
+
+class TrainingUpdateView(UserPassesTestMixin, UpdateView):
     model = Training
     template_name = 'performance/training/training_update.html'
     form_class = TrainingForm
+
+    def test_func(self):
+        return is_manager(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -476,20 +627,26 @@ class TrainingUpdateView(UpdateView):
         return reverse('training')
 
 
-class DocumentListView(ListView):
+class DocumentListView(UserPassesTestMixin, ListView):
     model = News
     template_name = 'performance/document/document.html'
     context_object_name = 'documents'
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-class DocumentCreateView(CreateView):
+
+class DocumentCreateView(UserPassesTestMixin, CreateView):
     model = News
     form_class = NewsForm
     template_name = 'performance/document/document_create.html'
     success_url = reverse_lazy('document')
 
+    def test_func(self):
+        return is_manager(self.request.user)
 
-@login_required(login_url="/employees/login")
+
+@user_passes_test(is_manager)
 def list_profile(request):
     employee_list = Employee.objects.all()
     paginator = Paginator(employee_list, 20)

@@ -40,6 +40,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'user_id'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    class Meta:
+        permissions = [
+            ("view_manager_pages", "Can view manager pages"),
+            ("view_employee_pages", "Can view employee pages"),
+        ]
     # def save(self, *args, **kwargs):
     #     if not self.user_id:
     #         last_id = CustomUser.objects.order_by('-user_id').first()
@@ -67,6 +72,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #     name, path, args, kwargs = super().deconstruct()
     #     del kwargs['to']
     #     return name, path, args, kwargs
+
 
     def __str__(self):
         return self.user_id
@@ -107,9 +113,14 @@ class Designation(models.Model):
 # Employee Register Model
 
 
+class ActiveEmployeeManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(status='In')
+
+
 class Employee(models.Model):
     user = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE, null=True, related_name='user')
+        CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='user')
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -165,6 +176,7 @@ class Employee(models.Model):
     status = models.CharField(max_length=50, null=True, choices=STATUS_CHOICES)
     # status = models.BooleanField(default=True, null=True)
     note = models.TextField(blank=True, null=True)
+    objects = ActiveEmployeeManager()
 
     def __str__(self):
         return f"{self.user.user_id} - {self.user.first_name}"
@@ -221,7 +233,8 @@ class Task(models.Model):
     title = models.CharField(max_length=100, null=True)
     description = models.TextField(blank=True, null=True)
     due_date = models.DateField(null=True)
-    assigned_to = models.ManyToManyField(Employee)
+    assigned_to = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, null=True)
     status = models.CharField(
         max_length=100, choices=STATUS_CHOICES, default='pending', null=True)
     priority = models.CharField(

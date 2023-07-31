@@ -116,6 +116,6 @@ urlpatterns = [
     path('panel/onboarding', views.onboard, name='onboarding'),
 
     path('panel/probation', views.probate, name='probation'),
-    path('panel/termination', views.terminate, name='termination'),
+
     # path('panel/courses', views.courses, name='courses'),
 ]
