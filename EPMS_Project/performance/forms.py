@@ -50,7 +50,8 @@ class TerminationForm(forms.ModelForm):
 class AppraisalForm(forms.ModelForm):
     class Meta:
         model = Appraisal
-        exclude = ["department", "designation", "colleagues"]
+        exclude = ["employee", "department", "designation",
+                   "colleagues", "to", "others", 'appraisal_Status', 'final_rating', 'potential']
 
 
 class QuestionForm(forms.ModelForm):
@@ -74,7 +75,7 @@ class TaskForm(forms.ModelForm):
 class DevelopmentPlanForm(forms.ModelForm):
     class Meta:
         model = DevelopmentPlan
-        fields = '__all__'
+        exclude = ['employee']
 
 
 class TrainingForm(forms.ModelForm):

@@ -9,6 +9,8 @@ urlpatterns = [
 
     # Employee URL
     path('panel/employees', views.EmployeeListView.as_view(), name='employees'),
+    path('panel/employees_create',
+         views.EmployeeCreateView.as_view(), name='employees_create'),
     path('panel/employee/<int:pk>/',
          views.EmployeeDetailView.as_view(), name='employee_detail'),
     path('panel/employee/<int:pk>/update',
@@ -90,16 +92,7 @@ urlpatterns = [
     path('panel/tasks/<int:pk>/update/',
          views.TaskUpdateView.as_view(), name='task_update'),
 
-    # Dev plan URL
 
-    path('panel/developmentplan/', views.DevelopmentPlanListView.as_view(),
-         name='developmentplan'),
-    path('panel/developmentplan/<int:pk>/', views.DevelopmentPlanDetailView.as_view(),
-         name='developmentplan_detail'),
-    path('panel/developmentplan/create/', views.DevelopmentPlanCreateView.as_view(),
-         name='developmentplan_create'),
-    path('panel/developmentplan/<int:pk>/update/', views.DevelopmentPlanUpdateView.as_view(),
-         name='developmentplan_update'),
 
     # Training plan
 
@@ -113,6 +106,8 @@ urlpatterns = [
          name='training_update'),
 
     path('panel/development', views.development, name='development'),
+    path('panel/development/<int:pk>/detail/',
+         views.DevelopmentDetailView.as_view(), name='development_detail'),
     path('panel/onboarding', views.onboard, name='onboarding'),
 
     path('panel/probation', views.probate, name='probation'),

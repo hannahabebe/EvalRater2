@@ -11,17 +11,14 @@
             <li class="nav-item">
                  <a class="nav-link" href="{% url 'employee_profile' %}"> Profile</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'appraisal' %}">Teams</a>
-            </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'my_task' %}">My Tasks</a>
         </li>
     </li>
-    <li class="d-flex justify-content-end " style="width:55% ;">
+    <li class="d-flex justify-content-end " style="width:62% ;">
         <li class="vr bg-primary my-2 mx-2"></li>
         <li class="nav-item">
-            <a class="nav-link active" href="#"><i class="fa fa-bell"></i></a>
+            <a class="nav-link active" href="{% url 'notifications' %}"><i class="fa fa-bell"></i></a>
         </li>
     </li>
 </ul>
@@ -33,7 +30,6 @@
     <div class="pt-5">
         <div class="row m-0 p-0 adminCard">
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="{% url 'employees' %}" class="text-decoration-none"> 
                     <div class="card">
                         <div class="card-body row d-flex justisfy-content-center">
                             <div class="col-4">
@@ -45,10 +41,8 @@
                             </div>
                         </div>
                     </div>
-                </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="{% url 'onboarding' %}" class="text-decoration-none"> 
                     <div class="card">
                         <div class="card-body row d-flex justisfy-content-center">
                             <div class="col-4">
@@ -61,10 +55,8 @@
                             </div>
                         </div>
                     </div>
-                </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="{% url 'probation' %}" class="text-decoration-none"> 
                     <div class="card">
                         <div class="card-body row d-flex justisfy-content-center">
                             <div class="col-4">
@@ -77,7 +69,6 @@
                             </div>
                         </div>
                     </div>
-                </a>
             </div>
         </div>
         
@@ -91,13 +82,13 @@
                     <div class="card-body">
                         <ul>
                             {% if appraisal %}
-                            <li><a href="{% url 'appraisal_detail' appraisal.id %}">My Appraisal</a></li>
+                            <li><a href="{% url 'my_appraisal' %}">My Appraisal</a></li>
                             {% else %}
                             <li><a href="" class="text-muted text-decoration-line-through ">No Appraisal</a></li>
                             {% endif %}
                             <li><a href="">Request Task</a></li>
-                            <li><a href="">Individual development plan</a></li>
-                            <li><a href="">Training</a></li>
+                            <li><a href="{% url 'developmentplan' %}">Individual development plan</a></li>
+                            <li><a href="{% url 'employee_trainings' %}">Trainings</a></li>
                         </ul>
                     </div>
                 </div>
@@ -154,4 +145,5 @@
     
     </div>
 </section>
+
 {% endblock body %}

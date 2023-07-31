@@ -7,16 +7,14 @@
 {% load widget_tweaks %}
 <ul class="nav panelNav fw-medium">
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+        <a class="nav-link" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
     </li>
     <li class="vr bg-primary my-2 mx-2"></li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'tasks' %}">List Task</a>
+        <a class="nav-link" href="{% url 'my_task' %}">List Task</a>
 
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'task_create' %}">Add Task</a>
-    </li>
+
 </ul>
 <form method="post" class="form">
    {% csrf_token %}

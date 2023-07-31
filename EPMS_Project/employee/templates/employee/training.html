@@ -1,0 +1,46 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    
+</ul>
+
+<div class="table-responsive table-hover home-section p-lg-3">
+    
+    <table class="table table-bordered caption-top">
+        <caption>List of Training </caption> 
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="px-3" style="font-size: 14px;">Training Course</th>
+                
+                <th class="px-3" style="font-size: 14px;">Initiated Date</th>
+               
+                
+            </tr>
+        </thead>
+        <tbody class="table-caption-top">
+            {% for training in trainings %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+            
+                <td>{{ training.training_course.course_name }}</td>          
+                <td>{{ training.initiated_date }}</td>            
+                
+               
+                <td class="text-center"><a href="{% url 'training_detail' training.id %}"><i class="fas fa-eye" ></i></a></td>
+                <td class="text-center"><a href="{% url 'training_update' training.id %}" ><i class="fas fa-edit"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

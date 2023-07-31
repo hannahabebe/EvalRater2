@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from .models import *
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
+from employee.forms import EmployeeForm as EF
 from .forms import *
 from django.contrib import messages
 from django.utils import timezone
@@ -71,7 +72,7 @@ def dashboard(request):
     return render(request, 'performance/dashboard.html', context)
 
 
-class DepartmentListView(UserPassesTestMixin, PermissionRequiredMixin, ListView):
+class DepartmentListView(UserPassesTestMixin, ListView):
     model = Department
     template_name = 'performance/department/department.html'
     context_object_name = 'departments'
@@ -137,18 +138,14 @@ class EmployeeDetailView(UserPassesTestMixin, DetailView):
         return is_manager(self.request.user)
 
 
-"""
-
-
 class EmployeeCreateView(CreateView):
     model = Employee
-    form_class = EmployeeCreateForm
+    form_class = EF
     template_name = 'performance/CreateEmployee.html'
 
     def get_success_url(self):
-        # Redirect to the 'employee' URL without the 'employee/' part
+
         return reverse('employee')
-"""
 
 
 class EmployeeUpdateView(UserPassesTestMixin, UpdateView):
@@ -177,14 +174,25 @@ def training(request):
 
 @user_passes_test(is_manager)
 def development(request):
-    developments = DevelopmentPlan.objects.all()
+    employee = Employee.objects.get(user=request.user)
+    developments = DevelopmentPlan.objects.filter(coach=employee)
     context = {"developments": developments}
     return render(request, 'performance/development.html', context)
 
 
-@user_passes_test(is_manager)
+class DevelopmentDetailView(UserPassesTestMixin, DetailView):
+    model = DevelopmentPlan
+    template_name = 'performance/development_promotion_detail.html'
+    context_object_name = 'developmentplan_detail'
+
+    def test_func(self):
+        return is_manager(self.request.user)
+
+
 def panel(request):
-    return render(request, 'performance/adminPanel.html')
+    user = request.user
+    context = {"user": user}
+    return render(request, 'performance/adminPanel.html', context)
 
 
 @user_passes_test(is_manager)
@@ -391,6 +399,10 @@ class AppraisalListView(UserPassesTestMixin, ListView):
     def test_func(self):
         return is_manager(self.request.user)
 
+    def get_queryset(self):
+        current_employee = Employee.objects.get(user=self.request.user)
+        return Appraisal.objects.filter(employee=current_employee)
+
 
 class AppraisalDetailView(UserPassesTestMixin, DetailView):
     model = Appraisal
@@ -411,11 +423,15 @@ class AppraisalCreateView(UserPassesTestMixin, CreateView):
         return is_manager(self.request.user)
 
     def form_valid(self, form):
+        employee_id = self.request.user
+        try:
+            current_employee = Employee.objects.get(user=employee_id)
+        except Employee.DoesNotExist:
+            raise Http404("Employee not found.")
 
-        employee_id = form.cleaned_data['employee'].user_id
-        employee = get_object_or_404(Employee, user_id=employee_id)
-        form.instance.department = employee.department
-        form.instance.designation = employee.designation
+        form.instance.employee = current_employee
+        form.instance.department = current_employee.department
+        form.instance.designation = current_employee.designation
 
         return super().form_valid(form)
 
@@ -535,52 +551,6 @@ class TaskUpdateView(UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('tasks')
-
-
-class DevelopmentPlanListView(UserPassesTestMixin, ListView):
-    model = DevelopmentPlan
-    template_name = 'performance/IDP/idp.html'
-    context_object_name = 'developmentplans'
-
-    def test_func(self):
-        return is_manager(self.request.user)
-
-
-class DevelopmentPlanDetailView(UserPassesTestMixin, DetailView):
-    model = DevelopmentPlan
-    template_name = 'performance/IDP/idp_detail.html'
-    context_object_name = 'developmentplan_detail'
-
-    def test_func(self):
-        return is_manager(self.request.user)
-
-
-class DevelopmentPlanCreateView(UserPassesTestMixin, CreateView):
-    model = DevelopmentPlan
-    template_name = 'performance/IDP/idp_create.html'
-    form_class = DevelopmentPlanForm
-    success_url = reverse_lazy('developmentplan')
-
-    def test_func(self):
-        return is_manager(self.request.user)
-
-
-class DevelopmentPlanUpdateView(UserPassesTestMixin, UpdateView):
-    model = DevelopmentPlan
-    template_name = 'performance/IDP/idp_update.html'
-    form_class = DevelopmentPlanForm
-
-    def test_func(self):
-        return is_manager(self.request.user)
-
-    def form_valid(self, form):
-        self.object = form.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def get_success_url(self):
-        return reverse('developmentplan')
-
-# Training view
 
 
 class TrainingListView(UserPassesTestMixin, ListView):

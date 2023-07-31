@@ -1,0 +1,63 @@
+{% extends 'performance/adminPanel.html' %}
+{% load static %}
+
+{% block body %}
+<ul class="nav panelNav fw-medium ">
+    <li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
+        </li>
+        <li class="vr bg-primary my-2 mx-2"></li>
+            <li class="nav-item">
+                 <a class="nav-link" href="{% url 'employee_profile' %}"> Profile</a>
+            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'my_task' %}">My Tasks</a>
+        </li>
+    </li>
+    <li class="d-flex justify-content-end " style="width:60% ;">
+        <li class="vr bg-primary my-2 mx-2"></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'notifications' %}"><i class="fa fa-bell"></i></a>
+        </li>
+    </li>
+</ul>
+
+
+<section class="section-50">
+    <div class="container p-lg-5">
+        
+        <div class="container">
+            <h3 class="mb-2 heading-line ">Notifications</h3>
+             <div class="row">
+            <div class="col-md-6" >
+                <div class="card p-3" style="height: 400px;">
+                    <h5>Tasks</h5>
+                    <ul>
+                        {% for task in tasks %}
+                        <li>You have been assigned a task <a href="{% url 'my_task_update' task.id %}">{{task.title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="card p-3" style="height: 400px;">
+                    <h5>Appraisals</h5>
+                    <ul>
+                        {% for appraisal in appraisals %}
+                        <li>You have been assigned an appraisal by <a href="{% url 'my_appraisal_edit' appraisal.id %}">{{appraisal.employee}}</a></li>
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+       
+
+    
+
+    </div>
+</section>
+
+{% endblock body %}

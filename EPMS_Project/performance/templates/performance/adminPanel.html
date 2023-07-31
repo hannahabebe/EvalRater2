@@ -11,13 +11,23 @@
     <i class="bx bx-menu" id="btns"></i>
   </div>
   <ul class="nav-list">
+    
     <li>
-      <a href="{% url 'dashboard' %}">
+      {% if user.is_employee %}
+        <a href="{% url 'employee_dashboard' %}">
         <i class="bx bx-grid-alt"></i>
         <span class="link_name">Dashboard</span>
       </a>
+      {% endif %}
+      {% if user.is_manager %}
+       <a href="{% url 'dashboard' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Dashboard</span>
+      </a>
+      {% endif %}
       <span class="tooltip">Dashboard</span>
     </li>
+    {% if user.is_manager %}
     <li>
       <a href="{% url 'department' %}">
         <i class="bx bx-sitemap"></i>
@@ -25,6 +35,8 @@
       </a>
       <span class="tooltip">Departments</span>
     </li>
+    {% endif %}
+    {% if user.is_manager %}
     <li>
       <a href="{% url 'employees'  %}">
         <i class="bx bx-group"></i>
@@ -32,20 +44,38 @@
       </a>
       <span class="tooltip">Employees</span>
     </li>
+    {% endif %}
     <li>
+      {% if user.is_employee %}
       <a href="{% url 'training' %}">
         <i class="bx bx-chalkboard"></i>
         <span class="link_name">Training</span>
       </a>
+      {% endif %}
+      {% if user.is_manager %}
+      <a href="{% url 'employee_trainings' %}">
+        <i class="bx bx-chalkboard"></i>
+        <span class="link_name">Training</span>
+      </a>
+      {% endif %}
       <span class="tooltip">Training</span>
     </li>
-    <li>
+     <li>
+      {% if user.is_employee %}
+      <a href="{% url 'developmentplan' %}">
+        <i class="bx bx-chalkboard"></i>
+        <span class="link_name">Training</span>
+      </a>
+      {% endif %}
+      {% if user.is_manager %}
       <a href="{% url 'development' %}">
-        <i class="bx bx-briefcase"></i>
+        <i class="bx bx-chalkboard"></i>
         <span class="link_name">Development</span>
       </a>
+      {% endif %}
       <span class="tooltip">Development</span>
     </li>
+
     
   </ul>
 </div>
@@ -55,8 +85,13 @@
         <div class="profile_details d-flex mx-3">
           <img src="{% static 'performance/images/user.png' %}" width="45" alt="">
           <div class="profile_content mx-2 my-auto">
-            <div class="name">Anna Jhon</div>
-            <div class="designation">Admin</div>
+            <div class="name">{{user.first_name}} {{user.last_name}}</div>
+            {% if user.is_manager %}
+            <div class="designation">Manager</div>
+            {% endif %}
+            {% if user.is_employee %}
+            <div class="designation">Employee</div>
+            {% endif %}
           </div>
         </div>
       </li>

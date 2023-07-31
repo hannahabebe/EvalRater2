@@ -75,11 +75,29 @@ class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
         exclude = ["joined_date", "department", "designation",
-                   "employment_type", "salary", "promotion_designation", "manager", "created_at", "updated_at", "status", "note"]
+                   "employment_type", "salary", "promotion_designation", "manager", "created_at", "updated_at", "note"]
 
 
 class MyTaskForm(forms.ModelForm):
     class Meta:
-
         model = Task
         fields = ["status"]
+
+
+class MyAppraisalForm(forms.ModelForm):
+    class Meta:
+        model = Appraisal
+        fields = ["questions"]
+        '''
+        exclude = ["employee", "department", "designation", "appraisal_cycle", "competencies", "questions",
+                   "colleagues", "to", "others", 'appraisal_Status', 'final_rating', 'potential', "evaluators", "due_date"]
+
+        '''
+    widgets = {
+        'questions': forms.CheckboxSelectMultiple(choices=[('yes', 'Yes'), ('no', 'No')])
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Customize the labels of the questions to display the actual question text
+        self.fields['questions'].label_from_instance = lambda obj: obj.question_text

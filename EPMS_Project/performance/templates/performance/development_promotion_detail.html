@@ -1,0 +1,111 @@
+<!-- performance/CreateEmployee.html -->
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+    <li class="nav-item">
+        <a class="nav-link act" href="{% url 'development' %}">List Development Plan</a>
+    </li>
+</ul>
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4" style="height:95%;">
+          <div class="card-body text-center">
+            <img src="/media/avatar/user.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{developmentplan_detail.employee.user.first_name}} {{developmentplan_detail.employee.user.last_name}}</h5>
+               
+            <p class="text-muted mb-1"> {{developmentplan_detail.employee.designation}}</p>
+            <p class="text-muted mb-2">{{developmentplan_detail.employee.address}}</p>
+
+
+            <div class="d-flex align-items-center m-0 mb-3"> 
+                {% if developmentplan_detail.employee.status == "A" %}
+                <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Active</p>
+                {% else %}
+                <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                <p class="m-0">Inactive</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4" style="height:95%;">
+          <div class="card-body" >
+            <h4 class="mb-3">Development Plan Information</h4>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{developmentplan_detail.IDP_name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Goal</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{developmentplan_detail.goal}}</p>
+              </div>
+            </div>
+             <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Course</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{developmentplan_detail.course}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Initiated Date</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{developmentplan_detail.initiated_date}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Status</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{developmentplan_detail.status}}</p>
+              </div>
+            </div>
+            </div>
+          </div>
+    </div>
+    </div>
+      
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div class="card  mb-md-0">
+              <div class="card-body">
+                <h5>Description</h5>
+                <hr>
+                <p>{{developmentplan_detail.description}}</p>
+            </div>
+            </div>
+    </div>
+  </div>
+</section>
+{% endblock body%}
+
+
+
+

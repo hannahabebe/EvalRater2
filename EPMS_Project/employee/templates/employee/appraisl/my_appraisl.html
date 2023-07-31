@@ -5,15 +5,9 @@
 
 <ul class="nav panelNav fw-medium">
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+        <a class="nav-link" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
     </li>
-    <li class="vr bg-primary my-2 mx-2"></li>
-    <li class="nav-item">
-        <a class="nav-link active" href="{% url 'appraisal' %}"> List</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'appraisal_create' %}">Add</a>
-    </li>
+
 </ul>
 
 <div class="table-responsive table-hover home-section p-lg-3">
@@ -23,14 +17,12 @@
         <thead>
             <tr>
                 <th></th>
-                <th class="px-3" style="font-size: 14px;">Employee Name</th>
+                <th class="px-3" style="font-size: 14px;">Assigned By</th>
                 <th class="px-3" style="font-size: 14px;">Department</th>
                 <th class="px-3" style="font-size: 14px;">Designation</th>
                 <th class="px-3" style="font-size: 14px;">Appraisal cycle</th>
-                <th class="px-3" style="font-size: 14px;">Appraisal Status</th>
                 <th class="px-3" style="font-size: 14px;">Final rating</th>
                 <th class="px-3" style="font-size: 14px;">View</th>
-                <th class="px-3" style="font-size: 14px;">Edit</th>
             </tr>
         </thead>
         <tbody class="table-caption-top">
@@ -42,20 +34,13 @@
                 <td>{{ appraisal.department }}</td>            
                 <td style="width:15%; text-align:left;">{{ appraisal.designation }}</td>            
                 <td class="text-center">{{ appraisal.appraisal_cycle}}</td>
-                {% if appraisal.appraisal_Status == None %}
+                {% if appraisal.final_rating == None %}
                 <td class="text-center">-</td>
                 {% else %}
-                <td class="text-center">{{ appraisal.appraisal_Status}}</td>
+                <td class="text-center">{{ appraisal.final_rating}}</td>
                 {% endif %}
-                {% if appraisal.appraisal_Status == None %}
-                <td class="text-center">-</td>
-                {% else %}
-                <td class="text-center">{{ appraisal.potential}}</td>
-                {% endif %}
-                
         
-                <td class="text-center"><a href="{% url 'appraisal_detail' appraisal.id %}"><i class="fas fa-eye" ></i></a></td>
-                <td class="text-center"><a href="{% url 'appraisal_update' appraisal.id %}" ><i class="fas fa-edit"></i></a></td>
+                <td class="text-center"><a href="{% url 'my_appraisal_edit' appraisal.id %}"><i class="fas fa-eye" ></i></a></td>
             </tr>
             {% endif %}
             {% endfor %}

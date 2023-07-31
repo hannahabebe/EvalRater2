@@ -16,7 +16,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Case, When, IntegerField
-from employee.forms import MyTaskForm
+from employee.forms import MyTaskForm, MyAppraisalForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
@@ -125,9 +125,10 @@ def dashboard(request):
     completed_tasks = task_count_dict.get('completed', 0)
 
     try:
-        appraisal = Appraisal.objects.get(employee=employee)
+        appraisal = Appraisal.objects.filter(evaluators=employee)
     except ObjectDoesNotExist:
         appraisal = None
+
     context = {"documents": documents, "newses": news,
                "appraisal": appraisal, "pending_tasks": pending_tasks, "in_progress_tasks": in_progress_tasks, "completed_tasks": completed_tasks}
     return render(request, 'employee/dashboard.html', context)
@@ -193,3 +194,117 @@ class TaskUpdateView(UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('my_task')
+
+
+def my_appraisal(request):
+    employee = Employee.objects.get(user=request.user)
+    appraisals = Appraisal.objects.filter(evaluators=employee)
+    context = {"appraisals": appraisals}
+    return render(request, 'employee/appraisl/my_appraisl.html', context)
+
+
+def attempt_appraisal(request):
+    employee = Employee.objects.get(user=request.user)
+    appraisals = Appraisal.objects.filter(evaluators=employee)
+    context = {"appraisals": appraisals}
+    return render(request, '', context)
+
+
+def AppraisalEditView(request, pk):
+    appraisal = Appraisal.objects.get(id=pk)
+    if request.method == "POST":
+        total = 0
+        for question in appraisal.questions.all():
+            question_id = question.id
+            answer = request.POST.get(f'question_{question_id}')
+            if answer == "yes":
+                total += question.weight
+            if answer == "no":
+                total += 0
+        appraisal.final_rating = total
+        appraisal.save()
+        return redirect('my_appraisal')
+
+    context = {"appraisal": appraisal}
+    return render(request, "employee/appraisl/attempt_appraisl.html", context)
+
+
+def Notifications(request):
+    employee = Employee.objects.get(user=request.user)
+    tasks = Task.objects.filter(assigned_to=employee)
+    appraisal = Appraisal.objects.filter(evaluators=employee)
+    context = {'tasks': tasks, "appraisals": appraisal}
+    return render(request, "employee/notifications.html", context)
+
+
+class TrainingListView(UserPassesTestMixin, ListView):
+    model = Training
+    template_name = "employee/training.html"
+    context_object_name = "trainings"
+    redirect_unauthenticated_users = reverse_lazy('login')
+
+    def test_func(self):
+        return is_employee(self.request.user)
+
+    def get_queryset(self):
+        employee = Employee.objects.get(user_id=self.request.user)
+        return Training.objects.filter(participants=employee)
+
+
+class DevelopmentPlanListView(UserPassesTestMixin, ListView):
+    model = DevelopmentPlan
+    template_name = 'employee/IDP/idp.html'
+    context_object_name = 'developmentplans'
+
+    def test_func(self):
+        return is_employee(self.request.user)
+
+    def get_queryset(self):
+        employee = Employee.objects.get(user_id=self.request.user)
+        return DevelopmentPlan.objects.filter(employee=employee)
+
+
+class DevelopmentPlanDetailView(UserPassesTestMixin, DetailView):
+    model = DevelopmentPlan
+    template_name = 'employee/IDP/idp_detail.html'
+    context_object_name = 'developmentplan_detail'
+
+    def test_func(self):
+        return is_employee(self.request.user)
+
+
+class DevelopmentPlanCreateView(UserPassesTestMixin, CreateView):
+    model = DevelopmentPlan
+    template_name = 'employee/IDP/idp_create.html'
+    form_class = DevelopmentPlanForm
+    success_url = reverse_lazy('developmentplan')
+
+    def test_func(self):
+        return is_employee(self.request.user)
+
+    def form_valid(self, form):
+        employee_id = self.request.user
+        try:
+            current_employee = Employee.objects.get(user=employee_id)
+        except Employee.DoesNotExist:
+            raise Http404("Employee not found.")
+
+        form.instance.employee = current_employee
+
+        return super().form_valid(form)
+
+
+class DevelopmentPlanUpdateView(UserPassesTestMixin, UpdateView):
+    model = DevelopmentPlan
+    template_name = 'employee/IDP/idp_update.html'
+    form_class = DevelopmentPlanForm
+
+    def test_func(self):
+        return is_employee(self.request.user)
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('developmentplan')
