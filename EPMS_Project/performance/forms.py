@@ -63,7 +63,13 @@ class QuestionForm(forms.ModelForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = "__all__"
+        exclude = ["publisher"]
+
+
+class DocumentsForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        exclude = ["author"]
 
 
 class TaskForm(forms.ModelForm):

@@ -490,6 +490,17 @@ class NewsCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return is_manager(self.request.user)
 
+    def form_valid(self, form):
+        employee_id = self.request.user
+        try:
+            current_employee = Employee.objects.get(user=employee_id)
+        except Employee.DoesNotExist:
+            raise Http404("Employee not found.")
+
+        form.instance.publisher = current_employee
+
+        return super().form_valid(form)
+
 
 class NewsUpdateView(UserPassesTestMixin, UpdateView):
     model = News
@@ -598,7 +609,7 @@ class TrainingUpdateView(UserPassesTestMixin, UpdateView):
 
 
 class DocumentListView(UserPassesTestMixin, ListView):
-    model = News
+    model = Document
     template_name = 'performance/document/document.html'
     context_object_name = 'documents'
 
@@ -607,13 +618,24 @@ class DocumentListView(UserPassesTestMixin, ListView):
 
 
 class DocumentCreateView(UserPassesTestMixin, CreateView):
-    model = News
-    form_class = NewsForm
+    model = Document
+    form_class = DocumentsForm
     template_name = 'performance/document/document_create.html'
-    success_url = reverse_lazy('document')
+    success_url = reverse_lazy('documents')
 
     def test_func(self):
         return is_manager(self.request.user)
+
+    def form_valid(self, form):
+        employee_id = self.request.user
+        try:
+            current_employee = Employee.objects.get(user=employee_id)
+        except Employee.DoesNotExist:
+            raise Http404("Employee not found.")
+
+        form.instance.author = current_employee
+
+        return super().form_valid(form)
 
 
 @user_passes_test(is_manager)

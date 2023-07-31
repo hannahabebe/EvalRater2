@@ -25,9 +25,6 @@
     <li class="nav-item">
         <a class="nav-link" href="{% url 'news' %}">News</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Manage Data</a>
-    </li>
 </ul>
 
 <section class="home-section px-lg-5">
@@ -169,15 +166,15 @@
             <div class="col-lg-4 col-sm-12 latest d-flex justify-content-evenly">
                 <div class="card border-0">
                     <div class="card-header bg-body-secondary border-0 text-primary fw-bold">
-                        <i class="bx bx-file"></i> Latest Documents
-                    </div> 
+                        <i class="bx bx-news"></i> Latest News
+                    </div>
                     <div class="card-body">
-                        {% for document in documents%}
+                        {% for document in documents %}
                         <a href="#" class="row d-flex align-items-center mb-3 text-decoration-none">
                             <div class="col-lg-10 col-md-8 col-6">
                                 <h6 class="card-title ">{{document.title}}</h6> 
                                 <p class="card-text">
-                                    <i class="fa fa-user-ninja small"></i> {{document.author}} |
+                                    <i class="fa fa-user-ninja small"></i> {{document.publisher}} |
                                     <i class="far fa-clock small"></i> {{document.created_at}}
                                 </p>
                             </div>
@@ -234,5 +231,41 @@
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<!--
 <script src="{% static 'performance/js/chart2.js' %}"></script>
+-->
+
+<script>
+    var ctx2 = document.getElementById('doughnut').getContext('2d');
+var myChart2 = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+        labels: ['Promoted', 'Onboarding', 'Terminated', 'Probation'],
+
+        datasets: [{
+            label: 'Employees',
+            data: [{{promotions_count}}, {{onboard_employee_count}}, {{terminated_count}}, {{employee_on_probation_count}}],
+            backgroundColor: [
+                'rgba(33, 140, 204, 0.6)',
+                'rgba(222, 239, 252, 1)',
+                'rgba(120, 245, 245, 0.6)',
+                'rgba(211, 211, 211, 1)'
+
+            ],
+            borderColor: [
+                'rgba(33, 140, 204, 0.6)',
+                'rgba(222, 239, 252, 1)',
+                'rgba(120, 245, 245, 0.6)',
+                'rgba(211, 211, 211, 1)'
+
+            ],
+            borderWidth: 1
+        }]
+
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
 {% endblock body %}

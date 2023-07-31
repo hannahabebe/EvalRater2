@@ -30,6 +30,7 @@
                                 <h4 class="modal-title">Create Document</h4>
                             </div>
                             <div class="modal-body">
+                                {{form.error}}
                                 {% for field in form.visible_fields %}
                                     <fieldset class="form-group">
                                         <label for="exampleInputEmail1">

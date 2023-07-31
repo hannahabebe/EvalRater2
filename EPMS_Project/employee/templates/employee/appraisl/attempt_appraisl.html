@@ -6,7 +6,7 @@
 
 <ul class="nav panelNav fw-medium">
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+        <a class="nav-link" href="{% url 'employee_dashboard' %}"><i class="fa fa-home"></i></a>
     </li>
     <li class="vr bg-primary my-2 mx-2"></li>
     <li class="nav-item">
@@ -27,6 +27,7 @@
                 <form method="post" class="form">
                     {% csrf_token %}
                     {% for question in appraisal.questions.all %}
+                    
                     <div class="row my-3">
                         <div class="col-md-12 mx-3 mb-2">
                           {{question}}
@@ -45,6 +46,23 @@
                         </div>
                 
                       {% endfor %}
+                       {% for competency in appraisal.competencies.all %}
+                        <div class="row my-3">
+                        <div class="col-md-12 mx-3 mb-2">
+                          {{competency}}
+                        </div>
+                        <div class="d-flex col-md-12">
+                          {% for i in "x"|rjust:competency.weight %}
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="competency_{{competency.id}}" id="competency_{{ forloop.counter }}_{{forloop.counter}}" value="{{forloop.counter}}" />
+                              <label class="form-check-label" for="competency_{{ forloop.counter }}_{{ forloop.counter }}">{{forloop.counter}}</label>
+                          </div>
+                          {% endfor %}
+                          </div>
+                        </div>
+                
+                      {% endfor %}
+                
                         <div class="w-1/2 mt-2">
                         <input type="submit" class="btn btn-primary" value="Submit" style="border-radius: .25rem;"/>
                         </div>

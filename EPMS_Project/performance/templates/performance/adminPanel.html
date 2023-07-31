@@ -47,13 +47,13 @@
     {% endif %}
     <li>
       {% if user.is_employee %}
-      <a href="{% url 'training' %}">
+      <a href="{% url 'employee_trainings' %}">
         <i class="bx bx-chalkboard"></i>
         <span class="link_name">Training</span>
       </a>
       {% endif %}
       {% if user.is_manager %}
-      <a href="{% url 'employee_trainings' %}">
+      <a href="{% url 'training' %}">
         <i class="bx bx-chalkboard"></i>
         <span class="link_name">Training</span>
       </a>
@@ -63,13 +63,13 @@
      <li>
       {% if user.is_employee %}
       <a href="{% url 'developmentplan' %}">
-        <i class="bx bx-chalkboard"></i>
-        <span class="link_name">Training</span>
+        <i class="bx bx-briefcase"></i>
+        <span class="link_name">Development</span>
       </a>
       {% endif %}
       {% if user.is_manager %}
       <a href="{% url 'development' %}">
-        <i class="bx bx-chalkboard"></i>
+        <i class="bx bx-briefcase"></i>
         <span class="link_name">Development</span>
       </a>
       {% endif %}

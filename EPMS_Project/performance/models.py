@@ -4,6 +4,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 import math
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db.models import Q
+from datetime import date
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class UserManager(BaseUserManager):
@@ -72,7 +75,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #     name, path, args, kwargs = super().deconstruct()
     #     del kwargs['to']
     #     return name, path, args, kwargs
-
 
     def __str__(self):
         return self.user_id
@@ -248,7 +250,30 @@ class Task(models.Model):
     def __str__(self):
         return f"{self.title} - {self.status}"
 
-# Probation Model
+    def update_status_based_on_deadline(self):
+        if self.due_date < date.today():
+            self.status = 'overdue'
+            self.performance_rating = 0.0
+
+    def calculate_performance_rating(self):
+        if self.status == 'completed':
+            print(self.status)
+            if self.due_date > date.today():
+                self.performance_rating = 12.0
+            elif self.due_date == date.today():
+                print("2")
+                self.performance_rating = 10.0
+            else:
+                self.performance_rating = 0.0
+
+        else:
+            self.performance_rating = None
+
+    def save(self, *args, **kwargs):
+        self.calculate_performance_rating()
+        self.update_status_based_on_deadline()
+        print(self.calculate_performance_rating())
+        super(Task, self).save(*args, **kwargs)
 
 
 class Probation(models.Model):

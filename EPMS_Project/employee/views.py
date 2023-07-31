@@ -44,6 +44,8 @@ def login_page(request):
                 return redirect('dashboard')
             elif user.is_employee:
                 return redirect('employee_dashboard')
+            elif user.is_admin or user.is_superuser:
+                return redirect('/admin/')
             else:
                 return redirect('login')
         else:
@@ -214,6 +216,11 @@ def AppraisalEditView(request, pk):
     appraisal = Appraisal.objects.get(id=pk)
     if request.method == "POST":
         total = 0
+        competencies = appraisal.competencies.all()
+        for i in range(1, len(competencies)+1):
+            competency_id = competencies[i-1].id
+            answer = request.POST.get(f'competency_{competency_id}')
+            total += int(answer)
         for question in appraisal.questions.all():
             question_id = question.id
             answer = request.POST.get(f'question_{question_id}')
@@ -221,6 +228,10 @@ def AppraisalEditView(request, pk):
                 total += question.weight
             if answer == "no":
                 total += 0
+        employee = Employee.objects.get(user=request.user)
+        for task in Task.objects.filter(assigned_to=employee):
+            if task.performance_rating:
+                total += task.performance_rating
         appraisal.final_rating = total
         appraisal.save()
         return redirect('my_appraisal')
