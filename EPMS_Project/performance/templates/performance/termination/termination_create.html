@@ -26,18 +26,44 @@
                     <form method="post" class="form">
                         {% csrf_token %}
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Create Termination</h4>
+                            <div class="modal-header mb-4">
+                                <h4 class="modal-title">Terminate Employee</h4>
                             </div>
                             <div class="modal-body">
-                                {% for field in form.visible_fields %}
+                                <!-- {% for field in form.visible_fields %}
                                     <fieldset class="form-group">
                                         <label for="exampleInputEmail1">
                                         {{ field.label_tag }}
                                     </label>
                                     {{ field|attr:"class:form-control" }}
                                 </fieldset>
-                                {% endfor %}
+                                {% endfor %} -->
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Employee</label>
+                                        <div class="form-group">
+                                            {% render_field form.employee class="form-control" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Date of Termination</label>
+                                        <div class="form-group">
+                                            {% render_field form.date_of_termination class="form-control" type="date" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="" for="">Reason</label>
+                                    <div class="form-group">
+                                        {% render_field form.reason class="form-control" %}
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="" for="">Note</label>
+                                    <div class="form-group">
+                                        {% render_field form.note class="form-control" %}
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer mt-2">
                                 <input type="submit" class="btn btn-primary" value="Save" style="border-radius: .25rem;"/>

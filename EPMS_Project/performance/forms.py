@@ -13,13 +13,14 @@ class EmployeeCreateForm(forms.ModelForm):
 class EmployeeUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['department', 'designation', 'employment_type',
+        fields = ['avatar', 'department', 'designation', 'employment_type',
                   'salary', 'promotion_designation', 'manager', 'status', 'note']
 
 
 class PromotionForm(forms.ModelForm):
     class Meta:
         model = Promotion
+        # fields = "__all__"
         exclude = ['past_position']
 
 

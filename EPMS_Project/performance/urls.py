@@ -6,6 +6,8 @@ urlpatterns = [
     path("menu", views.menu, name="menu"),
     path('panel/dashboard', views.dashboard, name='dashboard'),
     path('panel/profile', views.Profile, name='profile'),
+    path('panel/profile_edit', views.EditView.as_view(),
+          name='edit_profile'),
 
     # Employee URL
     path('panel/employees', views.EmployeeListView.as_view(), name='employees'),

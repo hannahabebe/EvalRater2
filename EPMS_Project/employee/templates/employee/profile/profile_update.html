@@ -22,21 +22,24 @@
         <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="/media/avatar/user.png" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
+            <img src="{{ employee_detail.user.avatar.url }}" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</h5>
                
             <p class="text-muted mb-1"> {{employee_detail.designation}}</p>
-            <p class="text-muted mb-2">{{employee_detail.address}}</p>
+            <p class="text-muted mb-2">
+                <i class="fa fa-map-marker-alt"></i>
+                {{employee_detail.address}}
+            </p>
 
 
             <div class="d-flex align-items-center m-0 mb-3"> 
                 {% if employee_detail.status == "A" %}
-                <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
-                <p class="m-0">Active</p>
+                    <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                    <p class="m-0">Active</p>
                 {% else %}
-                <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
-                <p class="m-0">Inactive</p>
+                    <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                    <p class="m-0">Inactive</p>
                 {% endif %}
             </div>
 
@@ -62,9 +65,9 @@
                                     <fieldset class="form-group">
                                         <label for="exampleInputEmail1">
                                         {{ field.label_tag }}
-                                    </label>
-                                    {{ field|attr:"class:form-control" }}
-                                </fieldset>
+                                        </label>
+                                        {{ field|attr:"class:form-control" }}
+                                    </fieldset>
                                 {% endfor %}
                             </div>
                             <div class="modal-footer mt-2">

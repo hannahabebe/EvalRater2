@@ -46,7 +46,15 @@
                 <p class="mb-0">Status</p>
               </div>
               <div class="col-sm-8">
-                <p class="text-muted mb-0">{{training_detail.status}}</p>
+                {% if training_detail.status == 'CA' %}
+                  <p class="text-muted mb-0">Cancelled</p>
+                {% elif training_detail.status == 'PA' %}
+                  <p class="text-muted mb-0">Pending Approval</p>
+                {% elif training_detail.status == 'S' %}
+                  <p class="text-muted mb-0">Scheduled</p>
+                {% else %}
+                <p class="text-muted mb-0">Completed</p>
+                {% endif %}
               </div>
             </div>
             <hr>

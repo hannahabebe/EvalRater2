@@ -1,0 +1,201 @@
+{% extends 'performance/adminPanel.html' %}
+
+{% load static %}
+{% block body %}
+
+{% load i18n widget_tweaks %}
+<ul class="nav panelNav fw-medium">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="vr bg-primary my-2 mx-2"></li>
+             <li class="nav-item">
+                 <a class="nav-link" href="{% url 'profile' %}"> Profile</a>
+            </li>
+            <li class="nav-item">
+                 <a class="nav-link active" href="{% url 'edit_profile' %}"> Edit</a>
+            </li>
+    </li>
+</ul>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="{{ employee_detail.avatar.url }}" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</h5>
+               
+            <p class="text-muted mb-1"> {{employee_detail.designation}}</p>
+            <p class="text-muted mb-2">
+                <i class="fa fa-map-marker-alt"></i>
+                {{employee_detail.address}}
+            </p>
+
+
+            <div class="d-flex align-items-center m-0 mb-3"> 
+                {% if employee_detail.status == "A" %}
+                    <div style="width:10px; height:10px; background-color:#6ccca5; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                    <p class="m-0">Active</p>
+                {% else %}
+                    <div style="width:10px; height:10px; background-color:#dc3545; border-radius:50%; padding:0.25rem; margin-right: 5px;"></div>
+                    <p class="m-0">Inactive</p>
+                {% endif %}
+            </div>
+
+             <div>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Created at {{employee_detail.created_at}} </p>
+                <p style="font-size: 14px; margin:1px;" class="text-secondary">Last Modified at {{employee_detail.updated_at}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-8">
+            <div class="card mb-4 mx-4">
+                <div class="card-body text-center">
+                    <div class="modal-dialog modal-lg" role="document">
+                    <form method="post" class="form"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="modal-content p-3">
+                            <div class="modal-header mb-3">
+                                <h4 class="modal-title">Edit Profile</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row d-flex m-0 p-0 mb-3">
+                                    <div class=" justify-content-center">
+                                        <!-- <label class="" for="">Avatar</label> -->
+                                        {% render_field form.avatar class="form-control py-2 w-50 d-inline" %}
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Gender</label>
+                                        <div class="form-check">
+                                            {% render_field form.gender class="form-check-label " %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Status</label>
+                                        <div class="form-check">
+                                            {% render_field form.status class="form-check-label" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Date of Birth</label>
+                                        <div class="form-group">
+                                            {% render_field form.dob class="form-control" type="date" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="inputDefault">Joined Date</label>
+                                        <div class="form-group">
+                                            {% render_field form.joined_date class="form-control" type="date" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="inputDefault">Address</label>
+                                        <div class="form-group">
+                                            {% render_field form.address class="form-control" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Nationality</label>
+                                        <div class="form-group">
+                                            {% render_field form.nationality class="form-control" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Email</label>
+                                        <div class="form-group">
+                                            {% render_field form.email class="form-control" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Phone Number</label>
+                                        <div class="form-group">
+                                            {% render_field form.phone_number class="form-control" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Marital Status</label>
+                                        <div>
+                                            {% render_field form.marital_status class="form-select" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Employment Type</label>
+                                        <div>
+                                            {% render_field form.employment_type class="form-select" %}
+                                        </div>
+                                    </div>
+                                <div class="row m-0 p-0 my-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Department</label>
+                                        <div>
+                                            {% render_field form.department class="form-select" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Designation</label>
+                                        <div>
+                                            {% render_field form.designation class="form-select" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0 mb-3">
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <label class="" for="">Promotion Designation</label>
+                                        <div>
+                                            {% render_field form.promotion_designation class="form-select" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <label class="" for="">Manager</label>
+                                        <div>
+                                            {% render_field form.manager class="form-select" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <label class="" for="">Salary</label>
+                                        <div class="form-group">
+                                            {% render_field form.salary class="form-control" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    {% render_field form.note class="form-control" %}
+                                </div>
+
+                                <!-- {% for field in form.visible_fields %}
+                        
+                                    <fieldset class="form-group">
+                                        <label for="edit">
+                                        {{ field.label_tag }}
+                                        </label>
+                                        {{ field|attr:"class:form-control" }}
+                                    </fieldset>
+                                {% endfor %} -->
+                            </div>
+                            <div class="modal-footer mt-2">
+                                <input type="submit" class="btn btn-primary" value="Save changes" style="border-radius: .25rem;"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body%}

@@ -1,4 +1,6 @@
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
+
+from employee.forms import EmployeeForm
 from .models import *
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
@@ -41,8 +43,30 @@ def Profile(request):
     context = {"employee_detail": employee}
     return render(request, 'performance/profile.html', context)
 
+# @user_passes_test(is_manager)
+# def Profile(request):
+#     ur = CustomUser.objects.get(user_id=request.user.user_id)
+#     employee = Employee.objects.get(user=ur)
+#     context = {"employee_detail": employee}
+#     return render(request, 'performance/profile.html', context)
 
-@user_passes_test(is_manager)
+class EditView(UserPassesTestMixin, UpdateView):
+    model = Employee
+    form_class = EmployeeForm
+    template_name = "performance/profile_update.html"
+    context_object_name = "employee_detail"
+
+    def test_func(self):
+        return is_manager(self.request.user)
+
+    def get_object(self, queryset=None):
+        return Employee.objects.get(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('profile')
+
+
+# @user_passes_test(is_manager)
 def index(request):
     return render(request, 'performance/index.html')
 
@@ -193,6 +217,10 @@ def panel(request):
     user = request.user
     context = {"user": user}
     return render(request, 'performance/adminPanel.html', context)
+    # user = CustomUser.objects.get(user_id=request.user.user_id)
+    # user = Employee.objects.get(user=user)
+    # context = {"user": user}
+    # return render(request, 'performance/adminPanel.html', context)
 
 
 @user_passes_test(is_manager)

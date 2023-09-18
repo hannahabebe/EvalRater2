@@ -71,11 +71,11 @@ class EmployeeForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-select'})
 
 
-class EmployeeForm(forms.ModelForm):
-    class Meta:
-        model = Employee
-        exclude = ["joined_date", "department", "designation",
-                   "employment_type", "salary", "promotion_designation", "manager", "created_at", "updated_at", "note"]
+# class EmployeeForm(forms.ModelForm):
+#     class Meta:
+#         model = Employee
+#         exclude = ["joined_date", "department", "designation",
+#                    "employment_type", "salary", "promotion_designation", "manager", "created_at", "updated_at", "note"]
 
 
 class MyTaskForm(forms.ModelForm):

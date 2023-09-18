@@ -35,7 +35,16 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ plan.IDP_name }}</td>
                 <td>{{ plan.employee }}</td>
-                <td>{{ plan.status }}</td>
+                {% if plan.status == 'IP' %}
+                    <td>In Progress</td>
+                {% elif plan.status == 'I' %}
+                    <td>Initiated</td>
+                {% elif  plan.status == 'NI' %}
+                    <td>Not Initiated</td>
+                {% else %}
+                    <td>Completed</td>
+                {% endif %}
+                
                 <td class="text-center"><a href="{% url 'developmentplan_detail' plan.pk %}"><i class="fas fa-eye"></i></a></td>
                 <td class="text-center"><a href="{% url 'developmentplan_update' plan.pk %}"><i class="fas fa-edit"></i></a></td>
             </tr>

@@ -78,11 +78,19 @@
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-calendar fa-lg me-3 fa-fw"></i>
-                                                <input type="date" id="birthdate" class="form-control" name="dob" value="{{ profile_form.dob.value }}"/>
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <!-- <input type="date" id="birthdate" class="form-control" name="dob" value="{{ profile_form.dob.value }}"/> -->
+                                                    <input type="date" id="birthdate" class="form-control" name="dob" {% if profile_form.dob.value %} value="{{ profile_form.dob.value }}" {% endif %}/>
+                                                    <label class="form-label" for="dob">Date of Birth</label>
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-flag fa-lg me-3 fa-fw"></i>
-                                                {{profile_form.nationality}}
+                                                <!-- {{profile_form.nationality}} -->
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="nationality" class="form-control" name="nationality" {% if profile_form.nationality.value %} value="{{ profile_form.nationality.value }}" {% endif %}/>
+                                                    <label class="form-label" for="nationality">Nationality</label>
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-rings-wedding fa-lg me-3 fa-fw"></i>
@@ -90,19 +98,35 @@
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-phone-alt fa-lg me-3 fa-fw"></i>
-                                                {{profile_form.phone_number}}
+                                                <!-- {{profile_form.phone_number}} -->
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="number" id="phone_number" class="form-control" name="phone_number" {% if profile_form.phone_number.value %} value="{{ profile_form.phone_number.value }}" {% endif %}/>
+                                                    <label class="form-label" for="phone_number">Phone Number</label>
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-map-marker-alt fa-lg me-3 fa-fw"></i>
-                                                {{profile_form.address}}
+                                                <!-- {{profile_form.address}} -->
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="address" class="form-control" name="address" {% if profile_form.address.value %} value="{{ profile_form.address.value }}" {% endif %}/>
+                                                    <label class="form-label" for="address">Address</label>
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-calendar-day fa-lg me-3 fa-fw"></i>
-                                                <input type="date" id="joined_date" class="form-control" name="joined_date" value="{{ profile_form.joined_date.value }}"/>
+                                                <!-- <input type="date" id="joined_date" class="form-control" name="joined_date" value="{{ profile_form.joined_date.value }}"/> -->
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="date" id="joined_date" class="form-control" name="joined_date" {% if profile_form.joined_date.value %} value="{{ profile_form.joined_date.value }}" {% endif %}/>
+                                                    <label class="form-label" for="joined_date">Joined Date</label>
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-lg me-3 fa-fw"></i>
                                                 {{profile_form.department}}
+                                                <!-- <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="nationality" class="form-control" name="nationality" {% if profile_form.nationality.value %} value="{{ profile_form.nationality.value }}" {% endif %}/>
+                                                    <label class="form-label" for="nationality">Nationality</label>
+                                                </div> -->
                                             </div>
                                             <div class="col-lg-6 d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-lg me-3 fa-fw"></i>

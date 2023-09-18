@@ -23,7 +23,7 @@
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="/media/avatar/user.png" alt="avatar"
+            <img src="{{ employee_detail.avatar.url }}" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</h5>
                
@@ -144,7 +144,11 @@
                 <p class="mb-0">Gender</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{employee_detail.gender}}</p>
+                {% if employee_detail.gender == "F" %}
+                  <p class="text-muted mb-0">Female</p>
+                {% else %}
+                  <p class="text-muted mb-0">Male</p>
+                {% endif %}
               </div>
             </div>
             <hr>
@@ -171,7 +175,15 @@
                 <p class="mb-0">Martial Status</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{employee_detail.marital_status}}</p>
+                {% if employee_detail.marital_status == 'S' %}
+                  <p class="text-muted mb-0">Single</p>
+                {% elif employee_detail.marital_status == 'M' %}
+                  <p class="text-muted mb-0">Married</p>
+                {% elif employee_detail.marital_status == 'D' %}
+                  <p class="text-muted mb-0">Divorced</p>
+                {% else %}
+                <p class="text-muted mb-0">Widowed</p>
+                {% endif %}
               </div>
             </div>
             <hr>

@@ -26,19 +26,72 @@
                     <form method="post" class="form">
                         {% csrf_token %}
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Create Promotion</h4>
+                            <div class="modal-header mb-3">
+                                <h4 class="modal-title">Promote Employee</h4>
                             </div>
                             <div class="modal-body">
-                                {% for field in form.visible_fields %}
+                                <!-- {% for field in form.visible_fields %}
                                     <fieldset class="form-group">
                                         <label for="exampleInputEmail1">
                                         {{ field.label_tag }}
                                     </label>
                                     {{ field|attr:"class:form-control" }}
                                 </fieldset>
-                                {% endfor %}
+                                {% endfor %} -->
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Employee</label>
+                                        <div class="">
+                                            {% render_field form.employee class="form-select" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Date of Promotion</label>
+                                        <div class="form-group">
+                                            {% render_field form.date_of_promotion class="form-control" type="date" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">New Position</label>
+                                        <div class="">
+                                            {% render_field form.new_position class="form-select" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Employment Type</label>
+                                        <div class="">
+                                            {% render_field form.employment_type class="form-select" %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Bonus</label>
+                                        <div class="form-group">
+                                            {% render_field form.bonus class="form-control "type="number" %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <label class="" for="">Reason</label>
+                                        <div class="form-group">
+                                            {% render_field form.reason rows="20" cols="20" class="form-control" %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div>
+                                        <label class="" for="">Note</label>
+                                        <div class="form-group">
+                                            {% render_field form.note class="form-control" %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="modal-footer mt-2">
                                 <input type="submit" class="btn btn-primary" value="Save" style="border-radius: .25rem;"/>
                             </div>

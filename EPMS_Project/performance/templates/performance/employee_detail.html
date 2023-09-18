@@ -13,7 +13,7 @@
         <a class="nav-link" href="{% url 'employees' %}"> List</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active" href="{% url 'question_create' %}">Add</a>
+        <a class="nav-link active" href="">View</a>
     </li>
 </ul>
 <section>
@@ -22,7 +22,7 @@
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="/media/avatar/user.png" alt="avatar"
+            <img src="{{ employee_detail.avatar.url }}" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">{{employee_detail.user.first_name}} {{employee_detail.user.last_name}}</h5>
             <p class="text-muted mb-1"> {{employee_detail.designation}}</p>

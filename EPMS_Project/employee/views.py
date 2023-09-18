@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from performance.models import *
 from performance.forms import *
 from django.contrib.auth import authenticate, login, logout

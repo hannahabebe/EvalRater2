@@ -69,18 +69,19 @@
               </div>
             </div>
             <hr>
-            <div class="row">
-              <div class="col-sm-4">
-                <p class="mb-0">Status</p>
+            <form method="post" class="form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="mb-0">Status</p>
+                </div>
+                <div class="col-sm-8 d-flex justify-content-end">
+                    
+                    {% render_field form.status class="form-select" %}
+                    <!-- {{form.status}} -->
+                    
+                </div>
               </div>
-              <div class="col-sm-8 d-flex justify-content-end">
-                   
-                       
-                              {{form.status}}
-                        
-                   
-              </div>
-            </div>
             <hr>
              <div class="row">
               <div class="col-sm-4">
